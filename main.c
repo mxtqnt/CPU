@@ -16,13 +16,5 @@ int main(void) {
     //8 E, L e G
     unsigned char ir, ro0, ro1, e, l, g;
 
-
-    printf("Hello World\n");
-
-
-
-
-
-
     return 0;
 }
