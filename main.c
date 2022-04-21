@@ -1,9 +1,11 @@
 #include <stdio.h>
 
-unsigned char memoria[154];
 unsigned int mbr, mar, imm, pc;
 unsigned int reg[8];
-unsigned char ir, ro0, ro1, e, l, g;
+unsigned char ir, ro0, ro1, e, l, g, memoria[154];
+
+//Memória falsa
+memoria[0] = 0x0;
 
 //Instruções
 int hlt     = 00000000,
@@ -27,7 +29,7 @@ int main(void) {
     };
 
     if (ir == nop) {
-
+        pc = pc + 1;
     };
 
     if (ir == add) {
