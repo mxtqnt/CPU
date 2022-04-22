@@ -1,9 +1,19 @@
 #include <stdio.h>
 
-int soma(int primeiroregistrador, int segundoregistrador){
-    int resultadosoma;
-    primeiroregistrador = primeiroregistrador + segundoregistrador;
-    return(resultadosoma);
+unsigned int busca(unsigned int pc, char memoria[], unsigned char ir, unsigned int mbr) {
+    //Carregar mbr - buscar instrução -
+    mbr = memoria[pc++] << 8;
+    mbr = (mbr | memoria[pc++]) << 8;
+    mbr = (mbr | memoria[pc++]) << 8;
+    mbr = mbr | memoria[pc++];
+
+    return(mbr);
+};
+
+unsigned int opcode(unsigned int mbr){
+    unsigned char ir;
+    ir = (mbr) >> 24;
+    return(ir);
 };
 
 unsigned int mbr = 0, mar, imm, pc = 0;
@@ -76,15 +86,8 @@ int main(void) {
     memoria[30] = 0x15;
     memoria[36] = 0x8;
 
-
-    //Carregar mbr - buscar instrução -
-    mbr = memoria[pc++] << 8;
-    mbr = (mbr | memoria[pc++]) << 8;
-    mbr = (mbr | memoria[pc++]) << 8;
-    mbr = mbr | memoria[pc++];
-
-    // Pegar o Opcode da instrução dentro do mbr
-    ir = (mbr) >> 24;
+    mbr = busca(pc, memoria, ir, mbr);
+    ir  = opcode(mbr);
 
     printf("MBR = %08x\n", mbr);
     printf("IR = %08x\n", ir);
@@ -132,6 +135,7 @@ int main(void) {
         printf("Conteúdo reg[6] = %x\n", reg[6]);
         printf("Conteúdo reg[7] = %x\n", reg[7]);
 
+        pc = pc++;
     };
 
     if (ir == st) {};
