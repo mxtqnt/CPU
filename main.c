@@ -7,7 +7,7 @@ int soma(int primeiroregistrador, int segundoregistrador){
 };
 
 unsigned int mbr = 0, mar, imm, pc = 0;
-unsigned int reg[8];
+unsigned int reg[8], nreg[8];
 unsigned char ir, ro0, ro1, e, l, g;
 char memoria[154];
 
@@ -42,14 +42,14 @@ int main(void) {
         lsh     = 0x1A,
         rsh     = 0x1B;
 
-    reg[0] = 000;
-    reg[1] = 001;
-    reg[2] = 010;
-    reg[3] = 011;
-    reg[4] = 100;
-    reg[5] = 101;
-    reg[6] = 110;
-    reg[7] = 111;
+    nreg[0] = 0;
+    nreg[1] = 1;
+    nreg[2] = 10;
+    nreg[3] = 11;
+    nreg[4] = 100;
+    nreg[5] = 101;
+    nreg[6] = 110;
+    nreg[7] = 111;
 
     pc = 0;
 
@@ -74,6 +74,8 @@ int main(void) {
     memoria[14] = 0x0;
     memoria[15] = 0x14;
     memoria[30] = 0x15;
+    memoria[36] = 0x8;
+
 
     //Carregar mbr - buscar instrução -
     mbr = memoria[pc++] << 8;
@@ -107,23 +109,31 @@ int main(void) {
     if (ir == jg) {};
     if (ir == jge) {};
     if (ir == jmp) {};
-    
+
     if (ir == ld) {
         int posicao = (mbr & 0x001fffff);
         int tmp     = (mbr & 0x00e00000) >> 21;
 
-            if (tmp == reg[0]){ reg[0] = memoria[posicao]; };
-            if (tmp == reg[1]){ reg[1] = memoria[posicao]; };
-            if (tmp == reg[2]){ reg[2] = memoria[posicao]; };
-            if (tmp == reg[3]){ reg[3] = memoria[posicao]; };
-            if (tmp == reg[4]){ reg[4] = memoria[posicao]; };
-            if (tmp == reg[5]){ reg[5] = memoria[posicao]; };
-            if (tmp == reg[6]){ reg[6] = memoria[posicao]; };
-            if (tmp == reg[7]){ reg[7] = memoria[posicao]; };
+            if (tmp == nreg[0]){ reg[0] = memoria[posicao]; };
+            if (tmp == nreg[1]){ reg[1] = memoria[posicao]; };
+            if (tmp == nreg[2]){ reg[2] = memoria[posicao]; };
+            if (tmp == nreg[3]){ reg[3] = memoria[posicao]; };
+            if (tmp == nreg[4]){ reg[4] = memoria[posicao]; };
+            if (tmp == nreg[5]){ reg[5] = memoria[posicao]; };
+            if (tmp == nreg[6]){ reg[6] = memoria[posicao]; };
+            if (tmp == nreg[7]){ reg[7] = memoria[posicao]; };
 
-        printf("Conteúdo registrador = %x\n", reg[0]);
+        printf("Conteúdo reg[0] = %x\n", reg[0]);
+        printf("Conteúdo reg[1] = %x\n", reg[1]);
+        printf("Conteúdo reg[2] = %x\n", reg[2]);
+        printf("Conteúdo reg[3] = %x\n", reg[3]);
+        printf("Conteúdo reg[4] = %x\n", reg[4]);
+        printf("Conteúdo reg[5] = %x\n", reg[5]);
+        printf("Conteúdo reg[6] = %x\n", reg[6]);
+        printf("Conteúdo reg[7] = %x\n", reg[7]);
+
     };
-    
+
     if (ir == st) {};
     if (ir == movi) {};
     if (ir == addi) {};
