@@ -13,41 +13,34 @@ char memoria[154];
 
 int main(void) {
     //Instruções
-    int hlt     = 00000000, //  |___________|____________________________|
-        nop     = 00000001; //  0           7                           31
-
-    int add     = 00000010,
-        sub     = 00000011,
-        mul     = 00000100,
-        div     = 00000101, //  |___________|_____|______|_______________|
-        cmp     = 00000110, //  0           7     10     13              31
-        movr    = 00000111,
-        and     = 00001000,
-        or      = 00001001,
-        xor     = 00001010;
-
-    int not     = 00001011; //  |___________|_____|______________________|
-                            //  0           7     10                     31
-    int je      = 00001100,
-        jne     = 00001101,
-        jl      = 00001110,
-        jle     = 00001111, //  |___________|_____|______|_______________|
-        jg      = 00010000, //  0           7     10                     31
-        jge     = 00010001,
-        jmp     = 00010010;
-
-
-    int ld      = 00010011,
-        st      = 00010100,
-        movi    = 00010101,
-        addi    = 00010110,
-        subi    = 00010111,
-        muli    = 00011000,
-        divi    = 00011001,
-        lsh     = 00011010,
-        rsh     = 00011011;
-
-
+    int hlt     = 0x0,
+        nop     = 0x1,
+        add     = 0x2,
+        sub     = 0x3,
+        mul     = 0x4,
+        div     = 0x5,
+        cmp     = 0x6,
+        movr    = 0x7,
+        and     = 0x8,
+        or      = 0x9,
+        xor     = 0xA,
+        not     = 0xB,
+        je      = 0xC,
+        jne     = 0xD,
+        jl      = 0xE,
+        jle     = 0xF,
+        jg      = 0x10,
+        jge     = 0x11,
+        jmp     = 0x12,
+        ld      = 0x13,
+        st      = 0x14,
+        movi    = 0x15,
+        addi    = 0x16,
+        subi    = 0x17,
+        muli    = 0x18,
+        divi    = 0x19,
+        lsh     = 0x1A,
+        rsh     = 0x1B;
 
     reg[0] = 000;
     reg[1] = 001;
@@ -80,35 +73,19 @@ int main(void) {
     memoria[13] = 0x0;
     memoria[14] = 0x0;
     memoria[15] = 0x14;
+    memoria[30] = 0x15;
 
-    //Carregar mbr buscar instrução -
-    mbr = memoria[pc++] << 8;  //0
-    // mbr 0000 0000 0000 0000 0000 0000 0001 0011
-    // mbr 0000 0000 0000 0000 0001 0011 0000 0000
-    //     00001300
-
-    mbr = (mbr | memoria[pc++]) << 8;   //1
-    // mbr      0000 0000 0000 0000 0001 0011 0000 0000 0r
-    // memoria  0000 0000 0000 0000 0000 0000 0000 0000
-    //          0000 0000 0000 0000 0001 0011 0000 0000
-    //          0000 0000 0001 0011 0000 0000 0000 0000
-    //          00130000
-
-    mbr = (mbr | memoria[pc++]) << 8;   //1
-    // mbr      0000 0000 0001 0011 0000 0000 0000 0000 0r
-    // memoria  0000 0000 0000 0000 0000 0000 0000 0000
-    //          0000 0000 0001 0011 0000 0000 0000 0000
-    //          0001 0011 0000 0000 0000 0000 0000 0000
-    //          13000000
-
-    mbr = mbr | memoria[pc++];   //1
-    // mbr      0001 0011 0000 0000 0000 0000 0000 0000 0r
-    // memoria  0000 0000 0000 0000 0000 0000 0001 1110
-    //          0001 0011 0000 0000 0000 0000 0001 1110
-    //          1300001e
+    //Carregar mbr - buscar instrução -
+    mbr = memoria[pc++] << 8;
+    mbr = (mbr | memoria[pc++]) << 8;
+    mbr = (mbr | memoria[pc++]) << 8;
+    mbr = mbr | memoria[pc++];
 
     // Pegar o Opcode da instrução dentro do mbr
     ir = (mbr) >> 24;
+
+    printf("MBR = %08x\n", mbr);
+    printf("IR = %08x\n", ir);
 
     //achar instrução
     if (ir == hlt) {};
@@ -130,7 +107,32 @@ int main(void) {
     if (ir == jg) {};
     if (ir == jge) {};
     if (ir == jmp) {};
-    if (ir == ld) {};
+    if (ir == ld) {
+        printf("\nir = ld\n");
+        // 0001 0011 xxx0 0000 0000 0000 0001 1110
+        // 0000 0000 1110 0000 0000 0000 0000 0000
+
+        int posicao   = (mbr & 0x001fffff);
+
+        reg[0] = memoria[posicao];
+
+        int tmp     = (mbr & 0x00e00000) >> 21;
+
+            if (tmp == reg[0]){ reg[0] = memoria[posicao]; };
+            if (tmp == reg[1]){ reg[1] = memoria[posicao]; };
+            if (tmp == reg[2]){ reg[2] = memoria[posicao]; };
+            if (tmp == reg[3]){ reg[3] = memoria[posicao]; };
+            if (tmp == reg[4]){ reg[4] = memoria[posicao]; };
+            if (tmp == reg[5]){ reg[5] = memoria[posicao]; };
+            if (tmp == reg[6]){ reg[6] = memoria[posicao]; };
+            if (tmp == reg[7]){ reg[7] = memoria[posicao]; };
+
+        printf("Registrador = %x\n", reg[0]);
+
+        // 0000 0000 0001 1111 1111 1111 1111 1111
+        printf("Posição de memoria = %08x\n", posicao);
+
+    };
     if (ir == st) {};
     if (ir == movi) {};
     if (ir == addi) {};
@@ -139,9 +141,6 @@ int main(void) {
     if (ir == divi ) {};
     if (ir == lsh ) {};
     if (ir == rsh) {};
-
-    printf("MBR = %08x\n", mbr);
-    printf("IR = %08x", ir);
 
     return 0;
 }
