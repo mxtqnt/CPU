@@ -24,33 +24,33 @@ char memoria[154];
 int main(void) {
     //Instruções
     int hlt     = 0x0,
-        nop     = 0x1,
-        add     = 0x2,
-        sub     = 0x3,
-        mul     = 0x4,
-        div     = 0x5,
-        cmp     = 0x6,
-        movr    = 0x7,
-        and     = 0x8,
-        or      = 0x9,
-        xor     = 0xA,
-        not     = 0xB,
-        je      = 0xC,
-        jne     = 0xD,
-        jl      = 0xE,
-        jle     = 0xF,
-        jg      = 0x10,
-        jge     = 0x11,
-        jmp     = 0x12,
-        ld      = 0x13,
-        st      = 0x14,
-        movi    = 0x15,
-        addi    = 0x16,
-        subi    = 0x17,
-        muli    = 0x18,
-        divi    = 0x19,
-        lsh     = 0x1A,
-        rsh     = 0x1B;
+            nop     = 0x1,
+            add     = 0x2,
+            sub     = 0x3,
+            mul     = 0x4,
+            div     = 0x5,
+            cmp     = 0x6,
+            movr    = 0x7,
+            and     = 0x8,
+            or      = 0x9,
+            xor     = 0xA,
+            not     = 0xB,
+            je      = 0xC,
+            jne     = 0xD,
+            jl      = 0xE,
+            jle     = 0xF,
+            jg      = 0x10,
+            jge     = 0x11,
+            jmp     = 0x12,
+            ld      = 0x13,
+            st      = 0x14,
+            movi    = 0x15,
+            addi    = 0x16,
+            subi    = 0x17,
+            muli    = 0x18,
+            divi    = 0x19,
+            lsh     = 0x1A,
+            rsh     = 0x1B;
 
     nreg[0] = 0;
     nreg[1] = 1;
@@ -76,7 +76,7 @@ int main(void) {
 
     memoria[8] = 0x2;
     memoria[9] = 0x4;
-    memoria[10] = 0x0; 
+    memoria[10] = 0x0;
     memoria[11] = 0x0;
 
     memoria[12] = 0x16;
@@ -118,14 +118,14 @@ int main(void) {
         int posicao = (mbr & 0x001fffff);
         int tmp     = (mbr & 0x00e00000) >> 21;
 
-            if (tmp == nreg[0]){ reg[0] = memoria[posicao]; };
-            if (tmp == nreg[1]){ reg[1] = memoria[posicao]; };
-            if (tmp == nreg[2]){ reg[2] = memoria[posicao]; };
-            if (tmp == nreg[3]){ reg[3] = memoria[posicao]; };
-            if (tmp == nreg[4]){ reg[4] = memoria[posicao]; };
-            if (tmp == nreg[5]){ reg[5] = memoria[posicao]; };
-            if (tmp == nreg[6]){ reg[6] = memoria[posicao]; };
-            if (tmp == nreg[7]){ reg[7] = memoria[posicao]; };
+        if (tmp == nreg[0]){ reg[0] = memoria[posicao]; };
+        if (tmp == nreg[1]){ reg[1] = memoria[posicao]; };
+        if (tmp == nreg[2]){ reg[2] = memoria[posicao]; };
+        if (tmp == nreg[3]){ reg[3] = memoria[posicao]; };
+        if (tmp == nreg[4]){ reg[4] = memoria[posicao]; };
+        if (tmp == nreg[5]){ reg[5] = memoria[posicao]; };
+        if (tmp == nreg[6]){ reg[6] = memoria[posicao]; };
+        if (tmp == nreg[7]){ reg[7] = memoria[posicao]; };
 
         printf("Conteúdo reg[0] = %x\n", reg[0]);
         printf("Conteúdo reg[1] = %x\n", reg[1]);
@@ -137,7 +137,7 @@ int main(void) {
         printf("Conteúdo reg[7] = %x\n", reg[7]);
 
         pc += 4;
-        printf("%d", pc);
+        printf("PC = %d\n", pc);
 
         goto retorno;
     };
