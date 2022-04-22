@@ -76,7 +76,7 @@ int main(void) {
 
     memoria[8] = 0x2;
     memoria[9] = 0x4;
-    memoria[10] = 0x0; //??????????
+    memoria[10] = 0x0; 
     memoria[11] = 0x0;
 
     memoria[12] = 0x16;
@@ -86,6 +86,7 @@ int main(void) {
     memoria[30] = 0x15;
     memoria[36] = 0x8;
 
+    retorno:
     mbr = busca(pc, memoria, ir, mbr);
     ir  = opcode(mbr);
 
@@ -135,7 +136,10 @@ int main(void) {
         printf("Conteúdo reg[6] = %x\n", reg[6]);
         printf("Conteúdo reg[7] = %x\n", reg[7]);
 
-        pc = pc++;
+        pc += 4;
+        printf("%d", pc);
+
+        goto retorno;
     };
 
     if (ir == st) {};
