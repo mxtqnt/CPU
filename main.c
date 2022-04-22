@@ -24,33 +24,33 @@ char memoria[154];
 int main(void) {
     //Instruções
     int hlt     = 0x0,
-            nop     = 0x1,
-            add     = 0x2,
-            sub     = 0x3,
-            mul     = 0x4,
-            div     = 0x5,
-            cmp     = 0x6,
-            movr    = 0x7,
-            and     = 0x8,
-            or      = 0x9,
-            xor     = 0xA,
-            not     = 0xB,
-            je      = 0xC,
-            jne     = 0xD,
-            jl      = 0xE,
-            jle     = 0xF,
-            jg      = 0x10,
-            jge     = 0x11,
-            jmp     = 0x12,
-            ld      = 0x13,
-            st      = 0x14,
-            movi    = 0x15,
-            addi    = 0x16,
-            subi    = 0x17,
-            muli    = 0x18,
-            divi    = 0x19,
-            lsh     = 0x1A,
-            rsh     = 0x1B;
+        nop     = 0x1,
+        add     = 0x2,
+        sub     = 0x3,
+        mul     = 0x4,
+        div     = 0x5,
+        cmp     = 0x6,
+        movr    = 0x7,
+        and     = 0x8,
+        or      = 0x9,
+        xor     = 0xA,
+        not     = 0xB,
+        je      = 0xC,
+        jne     = 0xD,
+        jl      = 0xE,
+        jle     = 0xF,
+        jg      = 0x10,
+        jge     = 0x11,
+        jmp     = 0x12,
+        ld      = 0x13,
+        st      = 0x14,
+        movi    = 0x15,
+        addi    = 0x16,
+        subi    = 0x17,
+        muli    = 0x18,
+        divi    = 0x19,
+        lsh     = 0x1A,
+        rsh     = 0x1B;
 
     nreg[0] = 0;
     nreg[1] = 1;
@@ -74,15 +74,16 @@ int main(void) {
     memoria[6] = 0x0;
     memoria[7] = 0x24;
 
-    memoria[8] = 0x2;
-    memoria[9] = 0x4;
+    memoria[8] = 0x14;
+    memoria[9] = 0x0;
     memoria[10] = 0x0;
-    memoria[11] = 0x0;
+    memoria[11] = 0x12;
 
-    memoria[12] = 0x16;
-    memoria[13] = 0x0;
+    memoria[12] = 0x2;
+    memoria[13] = 0x4;
     memoria[14] = 0x0;
-    memoria[15] = 0x14;
+    memoria[15] = 0x0;
+
     memoria[30] = 0x15;
     memoria[36] = 0x8;
 
@@ -94,9 +95,13 @@ int main(void) {
     printf("IR = %08x\n", ir);
 
     //achar instrução
-    if (ir == hlt) {};
+    if (ir == hlt) {
+        pc = 154;
+    };
     if (ir == nop) {};
-    if (ir == add) {};
+    if (ir == add) {
+        printf("Entrou aquiiiiiiiiiiiiiiiii");
+    };
     if (ir == sub) {};
     if (ir == mul) {};
     if (ir == div) {};
@@ -116,6 +121,7 @@ int main(void) {
 
     if (ir == ld) {
         int posicao = (mbr & 0x001fffff);
+        //0000 0000 1110 0000 0000 0000
         int tmp     = (mbr & 0x00e00000) >> 21;
 
         if (tmp == nreg[0]){ reg[0] = memoria[posicao]; };
@@ -138,11 +144,31 @@ int main(void) {
 
         pc += 4;
         printf("PC = %d\n", pc);
-
         goto retorno;
     };
 
-    if (ir == st) {};
+    if (ir == st) {
+        int endereco = (mbr & 0x001fffff);
+        int tmp     = (mbr & 0x00e00000) >> 21;
+
+        if (tmp == nreg[0]){ memoria[endereco] = reg[0]; };
+
+        printf("Memoria alterada = %x\n", memoria[endereco]);
+
+        printf("Conteúdo reg[0] = %x\n", reg[0]);
+        printf("Conteúdo reg[1] = %x\n", reg[1]);
+        printf("Conteúdo reg[2] = %x\n", reg[2]);
+        printf("Conteúdo reg[3] = %x\n", reg[3]);
+        printf("Conteúdo reg[4] = %x\n", reg[4]);
+        printf("Conteúdo reg[5] = %x\n", reg[5]);
+        printf("Conteúdo reg[6] = %x\n", reg[6]);
+        printf("Conteúdo reg[7] = %x\n", reg[7]);
+
+        pc += 4;
+        printf("PC = %d\n", pc);
+
+        goto retorno;
+    };
     if (ir == movi) {};
     if (ir == addi) {};
     if (ir == subi ) {};
