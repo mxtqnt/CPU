@@ -107,15 +107,9 @@ int main(void) {
     if (ir == jg) {};
     if (ir == jge) {};
     if (ir == jmp) {};
+    
     if (ir == ld) {
-        printf("\nir = ld\n");
-        // 0001 0011 xxx0 0000 0000 0000 0001 1110
-        // 0000 0000 1110 0000 0000 0000 0000 0000
-
-        int posicao   = (mbr & 0x001fffff);
-
-        reg[0] = memoria[posicao];
-
+        int posicao = (mbr & 0x001fffff);
         int tmp     = (mbr & 0x00e00000) >> 21;
 
             if (tmp == reg[0]){ reg[0] = memoria[posicao]; };
@@ -127,12 +121,9 @@ int main(void) {
             if (tmp == reg[6]){ reg[6] = memoria[posicao]; };
             if (tmp == reg[7]){ reg[7] = memoria[posicao]; };
 
-        printf("Registrador = %x\n", reg[0]);
-
-        // 0000 0000 0001 1111 1111 1111 1111 1111
-        printf("Posição de memoria = %08x\n", posicao);
-
+        printf("Conteúdo registrador = %x\n", reg[0]);
     };
+    
     if (ir == st) {};
     if (ir == movi) {};
     if (ir == addi) {};
