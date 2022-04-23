@@ -105,6 +105,14 @@ int main(void) {
     memoria[26] = 0x0;
     memoria[27] = 0x0;
 
+    // 0000 0101 0000 0100 0000 0000 0000 0000
+    // 0    5    0    4    0    0    0    0
+    memoria[28] = 0x5;
+    memoria[29] = 0x4;
+    memoria[26] = 0x0;
+    memoria[27] = 0x0;
+
+
     memoria[30] = 0x15;
     memoria[36] = 0x8;
 
@@ -243,9 +251,93 @@ int main(void) {
     };
     if (ir == cmp) {};
     if (ir == movr) {};
-    if (ir == and) {};
-    if (ir == or) {};
-    if (ir == xor) {};
+    if (ir == and) {
+        printf("Início instrução AND\n");
+        int primeiroregistrador     = (mbr & 0x00e00000) >> 21;
+        int segundoregistrador      = (mbr & 0x001c0000) >> 18;
+
+        if (primeiroregistrador == nreg[0]){ primeiroregistrador = reg[0]; };
+        if (primeiroregistrador == nreg[1]){ primeiroregistrador = reg[1]; };
+        if (primeiroregistrador == nreg[2]){ primeiroregistrador = reg[2]; };
+        if (primeiroregistrador == nreg[3]){ primeiroregistrador = reg[3]; };
+        if (primeiroregistrador == nreg[4]){ primeiroregistrador = reg[4]; };
+        if (primeiroregistrador == nreg[5]){ primeiroregistrador = reg[5]; };
+        if (primeiroregistrador == nreg[6]){ primeiroregistrador = reg[6]; };
+        if (primeiroregistrador == nreg[7]){ primeiroregistrador = reg[7]; };
+
+        if (segundoregistrador == nreg[0]){ segundoregistrador = reg[0]; primeiroregistrador = primeiroregistrador & segundoregistrador; };
+        if (segundoregistrador == nreg[1]){ segundoregistrador = reg[1]; primeiroregistrador = primeiroregistrador & segundoregistrador; };
+        if (segundoregistrador == nreg[2]){ segundoregistrador = reg[2]; primeiroregistrador = primeiroregistrador & segundoregistrador; };
+        if (segundoregistrador == nreg[3]){ segundoregistrador = reg[3]; primeiroregistrador = primeiroregistrador & segundoregistrador; };
+        if (segundoregistrador == nreg[4]){ segundoregistrador = reg[4]; primeiroregistrador = primeiroregistrador & segundoregistrador; };
+        if (segundoregistrador == nreg[5]){ segundoregistrador = reg[5]; primeiroregistrador = primeiroregistrador & segundoregistrador; };
+        if (segundoregistrador == nreg[6]){ segundoregistrador = reg[6]; primeiroregistrador = primeiroregistrador & segundoregistrador; };
+        if (segundoregistrador == nreg[7]){ segundoregistrador = reg[7]; primeiroregistrador = primeiroregistrador & segundoregistrador; };
+
+        printf("AND %0x\n", primeiroregistrador);
+
+        pc += 4;
+        printf("PC = %d\n", pc);
+        goto retorno;
+    };
+    if (ir == or) {
+        printf("Início instrução OR\n");
+        int primeiroregistrador     = (mbr & 0x00e00000) >> 21;
+        int segundoregistrador      = (mbr & 0x001c0000) >> 18;
+
+        if (primeiroregistrador == nreg[0]){ primeiroregistrador = reg[0]; };
+        if (primeiroregistrador == nreg[1]){ primeiroregistrador = reg[1]; };
+        if (primeiroregistrador == nreg[2]){ primeiroregistrador = reg[2]; };
+        if (primeiroregistrador == nreg[3]){ primeiroregistrador = reg[3]; };
+        if (primeiroregistrador == nreg[4]){ primeiroregistrador = reg[4]; };
+        if (primeiroregistrador == nreg[5]){ primeiroregistrador = reg[5]; };
+        if (primeiroregistrador == nreg[6]){ primeiroregistrador = reg[6]; };
+        if (primeiroregistrador == nreg[7]){ primeiroregistrador = reg[7]; };
+
+        if (segundoregistrador == nreg[0]){ segundoregistrador = reg[0]; primeiroregistrador = primeiroregistrador | segundoregistrador; };
+        if (segundoregistrador == nreg[1]){ segundoregistrador = reg[1]; primeiroregistrador = primeiroregistrador | segundoregistrador; };
+        if (segundoregistrador == nreg[2]){ segundoregistrador = reg[2]; primeiroregistrador = primeiroregistrador | segundoregistrador; };
+        if (segundoregistrador == nreg[3]){ segundoregistrador = reg[3]; primeiroregistrador = primeiroregistrador | segundoregistrador; };
+        if (segundoregistrador == nreg[4]){ segundoregistrador = reg[4]; primeiroregistrador = primeiroregistrador | segundoregistrador; };
+        if (segundoregistrador == nreg[5]){ segundoregistrador = reg[5]; primeiroregistrador = primeiroregistrador | segundoregistrador; };
+        if (segundoregistrador == nreg[6]){ segundoregistrador = reg[6]; primeiroregistrador = primeiroregistrador | segundoregistrador; };
+        if (segundoregistrador == nreg[7]){ segundoregistrador = reg[7]; primeiroregistrador = primeiroregistrador | segundoregistrador; };
+
+        printf("OR %0x\n", primeiroregistrador);
+
+        pc += 4;
+        printf("PC = %d\n", pc);
+        goto retorno;
+    };
+    if (ir == xor) {
+        printf("Início instrução XOR\n");
+        int primeiroregistrador     = (mbr & 0x00e00000) >> 21;
+        int segundoregistrador      = (mbr & 0x001c0000) >> 18;
+
+        if (primeiroregistrador == nreg[0]){ primeiroregistrador = reg[0]; };
+        if (primeiroregistrador == nreg[1]){ primeiroregistrador = reg[1]; };
+        if (primeiroregistrador == nreg[2]){ primeiroregistrador = reg[2]; };
+        if (primeiroregistrador == nreg[3]){ primeiroregistrador = reg[3]; };
+        if (primeiroregistrador == nreg[4]){ primeiroregistrador = reg[4]; };
+        if (primeiroregistrador == nreg[5]){ primeiroregistrador = reg[5]; };
+        if (primeiroregistrador == nreg[6]){ primeiroregistrador = reg[6]; };
+        if (primeiroregistrador == nreg[7]){ primeiroregistrador = reg[7]; };
+
+        if (segundoregistrador == nreg[0]){ segundoregistrador = reg[0]; primeiroregistrador = primeiroregistrador ^ segundoregistrador; };
+        if (segundoregistrador == nreg[1]){ segundoregistrador = reg[1]; primeiroregistrador = primeiroregistrador ^ segundoregistrador; };
+        if (segundoregistrador == nreg[2]){ segundoregistrador = reg[2]; primeiroregistrador = primeiroregistrador ^ segundoregistrador; };
+        if (segundoregistrador == nreg[3]){ segundoregistrador = reg[3]; primeiroregistrador = primeiroregistrador ^ segundoregistrador; };
+        if (segundoregistrador == nreg[4]){ segundoregistrador = reg[4]; primeiroregistrador = primeiroregistrador ^ segundoregistrador; };
+        if (segundoregistrador == nreg[5]){ segundoregistrador = reg[5]; primeiroregistrador = primeiroregistrador ^ segundoregistrador; };
+        if (segundoregistrador == nreg[6]){ segundoregistrador = reg[6]; primeiroregistrador = primeiroregistrador ^ segundoregistrador; };
+        if (segundoregistrador == nreg[7]){ segundoregistrador = reg[7]; primeiroregistrador = primeiroregistrador ^ segundoregistrador; };
+
+        printf("XOR %0x\n", primeiroregistrador);
+
+        pc += 4;
+        printf("PC = %d\n", pc);
+        goto retorno;
+    };
     if (ir == not) {};
     if (ir == je ) {};
     if (ir == jne ) {};
