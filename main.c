@@ -119,7 +119,9 @@ int main(void) {
     if (ir == hlt) {
         pc = 154;
     };
-    if (ir == nop) {};
+    if (ir == nop) {
+        pc += 4;
+    };
     if (ir == add) {
         printf("Início instrução ADD\n");
         int primeiroregistrador     = (mbr & 0x00e00000) >> 21;
