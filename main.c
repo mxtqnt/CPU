@@ -84,8 +84,9 @@ int main(void) {
     memoria[14] = 0x0;
     memoria[15] = 0x0;
 
-    // 0000 0011
-    memoria[16] = 0x2;
+    // 0000 0011 0000 0100 0000 0000 0000 0000
+    // 0    3    0    4    0    0    0    0
+    memoria[16] = 0x3;
     memoria[17] = 0x4;
     memoria[18] = 0x0;
     memoria[19] = 0x0;
@@ -136,6 +137,33 @@ int main(void) {
     };
 
     if (ir == sub) {
+        printf("sub começa\n");
+        int primeiroregistrador     = (mbr & 0x00e00000) >> 21;
+        int segundoregistrador      = (mbr & 0x001c0000) >> 18;
+
+        if (primeiroregistrador == nreg[0]){ primeiroregistrador = reg[0]; };
+        if (primeiroregistrador == nreg[1]){ primeiroregistrador = reg[1]; };
+        if (primeiroregistrador == nreg[2]){ primeiroregistrador = reg[2]; };
+        if (primeiroregistrador == nreg[3]){ primeiroregistrador = reg[3]; };
+        if (primeiroregistrador == nreg[4]){ primeiroregistrador = reg[4]; };
+        if (primeiroregistrador == nreg[5]){ primeiroregistrador = reg[5]; };
+        if (primeiroregistrador == nreg[6]){ primeiroregistrador = reg[6]; };
+        if (primeiroregistrador == nreg[7]){ primeiroregistrador = reg[7]; };
+
+        if (segundoregistrador == nreg[0]){ segundoregistrador = reg[0]; primeiroregistrador = primeiroregistrador - segundoregistrador; };
+        if (segundoregistrador == nreg[1]){ segundoregistrador = reg[1]; primeiroregistrador = primeiroregistrador - segundoregistrador; };
+        if (segundoregistrador == nreg[2]){ segundoregistrador = reg[2]; primeiroregistrador = primeiroregistrador - segundoregistrador; };
+        if (segundoregistrador == nreg[3]){ segundoregistrador = reg[3]; primeiroregistrador = primeiroregistrador - segundoregistrador; };
+        if (segundoregistrador == nreg[4]){ segundoregistrador = reg[4]; primeiroregistrador = primeiroregistrador - segundoregistrador; };
+        if (segundoregistrador == nreg[5]){ segundoregistrador = reg[5]; primeiroregistrador = primeiroregistrador - segundoregistrador; };
+        if (segundoregistrador == nreg[6]){ segundoregistrador = reg[6]; primeiroregistrador = primeiroregistrador - segundoregistrador; };
+        if (segundoregistrador == nreg[7]){ segundoregistrador = reg[7]; primeiroregistrador = primeiroregistrador - segundoregistrador; };
+
+        printf("Subtração = %0x\n", primeiroregistrador);
+
+        pc += 4;
+        printf("PC = %d\n", pc);
+        goto retorno;
 
     };
     if (ir == mul) {};
