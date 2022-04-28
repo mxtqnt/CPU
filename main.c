@@ -1,31 +1,39 @@
 #include <stdio.h>
 
-// Busca
-unsigned int busca(unsigned int pc, char memoria[], unsigned char ir, unsigned int mbr) {
-    //Carregar mbr - buscar instrução -
-    mbr = memoria[pc++] << 8;
-    mbr = (mbr | memoria[pc++]) << 8;
-    mbr = (mbr | memoria[pc++]) << 8;
-    mbr = mbr | memoria[pc++];
-    return(mbr);
-};
-
-// Decodificação
-unsigned int opcode(unsigned int mbr){
-    unsigned char ir;
-    ir = (mbr) >> 24;
-    return(ir);
-};
-
 unsigned int mbr = 0, mar, imm, pc = 0;
 unsigned int reg[8];
 unsigned char ir, ro0, ro1, e, l, g;
 char memoria[154];
 
-int main(void) {
-    mbr = busca(pc, memoria, ir, mbr);
-    ir  = opcode(mbr);
+// Busca
+busca() {
+    //Carregar mbr - buscar instrução -
+    mbr = memoria[pc++] << 8;
+    mbr = (mbr | memoria[pc++]) << 8;
+    mbr = (mbr | memoria[pc++]) << 8;
+    mbr = mbr | memoria[pc++];
+};
 
+// Decodificação
+opcode(){
+    ir = (mbr) >> 24;
+};
+
+registradorRo0(){
+    ro0 = (mbr & 0x00e00000) >> 21;
+};
+
+registradorRo1(){
+    ro1 = (mbr & 0x001c0000) >> 18;
+};
+
+registradorImm(){
+    imm = mbr & 0x001fffff;
+};
+
+
+
+int main(void) {
     // Execução
     if (ir <= 2){
         if (ir == 0){//hlt
@@ -37,8 +45,8 @@ int main(void) {
     };
 
     if(ir >= 3 & ir <= 11) {
-        ro0 = (mbr & 0x00e00000) >> 21;
-        ro1 = (mbr & 0x001c0000) >> 18;
+        ro0 = registradorRo0();
+        ro1 = registradorRo1();
 
         if (ir == 2) {//add
             reg[ro0] = reg[ro0] + reg[ro1];
@@ -71,7 +79,7 @@ int main(void) {
             };
 
             if (ro0 < ro1){
-               l = 0x01;
+                l = 0x01;
                 pc += 4;
             };
 
@@ -103,7 +111,7 @@ int main(void) {
     };
 
     if(ir == 11){
-        ro0 = (mbr & 0x00e00000) >> 21;
+        ro0 = registradorRo0();
         reg[ro0] = !(reg[ro0]);
         pc += 4;
     };
@@ -113,7 +121,7 @@ int main(void) {
 
         if (ir == 12){//je
             if(e == 1){
-              pc = mar; //???????
+                pc = mar; //???????
             };
         };
 
@@ -153,18 +161,18 @@ int main(void) {
     };
 
     if(ir == 19 | ir == 20){
-        ro0 = (mbr & 0x00e00000) >> 21;
-        mar = mbr & 0x001fffff;
+        ro0 = registradorRo0();
+        mar = registradorImm();
 
         if (ir == 19){//ld
             mbr = (memoria[mar++]) << 8;
-                //mbr = xxxx xxxx xxxx xxxx 1100 1010 0000 0000
+            //mbr = xxxx xxxx xxxx xxxx 1100 1010 0000 0000
             mbr = (mbr | memoria[mar++]) <<8;
-                //mbr = 0000 0000 1100 1010 1111 1110 0000 0000
+            //mbr = 0000 0000 1100 1010 1111 1110 0000 0000
             mbr = (mbr | memoria[mar++]) <<8;
-                //mbr = 1100 1010 1111 1110 1100 1010 0000 0000
+            //mbr = 1100 1010 1111 1110 1100 1010 0000 0000
             mbr = (mbr | memoria[mar++]);
-                //mbr = 1100 1010 1111 1110 1100 1010 1111 1110
+            //mbr = 1100 1010 1111 1110 1100 1010 1111 1110
             reg[ro0] = mbr;
             pc += 4;
         };
@@ -176,7 +184,7 @@ int main(void) {
     };
 
     if(ir >= 21 & ir <= 27){
-        ro0 = (mbr & 0x00e00000) >> 21;
+        ro0 = registradorRo0();
         imm = mbr & 0x001fffff;
         if (ir == 21){//movi
             reg[ro0] = imm;
@@ -202,13 +210,13 @@ int main(void) {
             reg[ro0] = reg[ro0] / imm;
             pc += 4;
         };
-        
-        if (ir == 26){//lsh 
+
+        if (ir == 26){//lsh
             reg[ro0] = reg[ro0] << imm;
             pc += 4;
         };
-        
-        if (ir == 27){//rsh 
+
+        if (ir == 27){//rsh
             reg[ro0] = reg[ro0] >> imm;
             pc += 4;
         };
