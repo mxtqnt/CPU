@@ -61,7 +61,7 @@ int main(void) {
             l = 0x00;
             g = 0x00;
 
-            if (ro0 = ro1){
+            if (ro0 == ro1){
                 e = 0x01;
             };
 
@@ -91,36 +91,74 @@ int main(void) {
         };
     };
 
-    if(ir = 11){
+    if(ir == 11){
         ro0 = (mbr & 0x00e00000) >> 21;
         reg[ro0] = !(reg[ro0]);
     };
 
     if(ir > 12 & ir <= 18){
-        // 0001 0011 0000 0000 0000 0000 0001 1110
-        // 0000 0000 0001 1111 1111 1111 1111 1111 instruções
+        mar = mbr & 0x001fffff;
 
         if (ir == 12){//je
-            pc =
+            if(e == 1){
+              pc = mar; //???????
+            };
         };
 
         if (ir == 13){//jne
+            if(e == 0){
+                pc = mar; //???????
+            };
         };
 
         if (ir == 14){//jl
+            if(l == 1){
+                pc = mar; //???????
+            };
         };
 
         if (ir == 15){//jle
+            if(e == 1 | l == 1){
+                pc = mar; //???????
+            };
         };
 
         if (ir == 16){//jg
+            if(g == 1){
+                pc = mar; //???????
+            };
         };
 
         if (ir == 17){//jge
+            if(e == 1 | g == 1){
+                pc = mar; //???????
+            };
         };
 
         if (ir == 18){//jmp
+            pc = mar; //???????
+        };
+    };
+
+    if(ir == 19 | ir == 20){
+        ro0 = (mbr & 0x00e00000) >> 21;
+        mar = mbr & 0x001fffff;
+
+        if (ir == 19){//ld
+            // 1100 1010 1111 1110 1100 1010 1111 1110
+            // C    A    F    E    C    A    F    E
+            // MAR
+            // 
+            //
+            //
+            //
+            //
+            
+
+            reg[ro0] = memoria[mar];
         };
 
+        if (ir == 20){//st
+        };
     };
 };
