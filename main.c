@@ -174,4 +174,43 @@ int main(void) {
             pc += 4;
         };
     };
+
+    if(ir >= 21 & ir <= 27){
+        ro0 = (mbr & 0x00e00000) >> 21;
+        imm = mbr & 0x001fffff;
+        if (ir == 21){//movi
+            reg[ro0] = imm;
+            pc += 4;
+        };
+
+        if (ir == 22){//addi
+            reg[ro0] = reg[ro0] + imm;
+            pc += 4;
+        };
+
+        if (ir == 23){//subi
+            reg[ro0] = reg[ro0] - imm;
+            pc += 4;
+        };
+
+        if (ir == 24){//muli
+            reg[ro0] = reg[ro0] - imm;
+            pc += 4;
+        };
+
+        if (ir == 25){//divi
+            reg[ro0] = reg[ro0] / imm;
+            pc += 4;
+        };
+        
+        if (ir == 26){//lsh 
+            reg[ro0] = reg[ro0] << imm;
+            pc += 4;
+        };
+        
+        if (ir == 27){//rsh 
+            reg[ro0] = reg[ro0] >> imm;
+            pc += 4;
+        };
+    };
 };
