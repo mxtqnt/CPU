@@ -42,18 +42,22 @@ int main(void) {
 
         if (ir == 2) {//add
             reg[ro0] = reg[ro0] + reg[ro1];
+            pc += 4;
         };
 
         if (ir == 3) {//sub
             reg[ro0] = reg[ro0] - reg[ro1];
+            pc += 4;
         };
 
         if (ir == 4) {//mul
             reg[ro0] = reg[ro0] * reg[ro1];
+            pc += 4;
         };
 
         if (ir == 5) {//div
             reg[ro0] = reg[ro0] / reg[ro1];
+            pc += 4;
         };
 
         if (ir == 6) {//cmp
@@ -63,37 +67,45 @@ int main(void) {
 
             if (ro0 == ro1){
                 e = 0x01;
+                pc += 4;
             };
 
             if (ro0 < ro1){
                l = 0x01;
+                pc += 4;
             };
 
             if (ro0 > ro1){
                 g = 0x01;
+                pc += 4;
             };
         };
 
         if (ir == 7) {//movr
             reg[ro0] = reg[ro1];
+            pc += 4;
         };
 
         if (ir == 8) {//and
             reg[ro0] = reg[ro0] & reg[ro1];
+            pc += 4;
         };
 
         if (ir == 9) {//or
             reg[ro0] = reg[ro0] | reg[ro1];
+            pc += 4;
         };
 
         if (ir == 10) {//xor
             reg[ro0] = reg[ro0] ^ reg[ro1];
+            pc += 4;
         };
     };
 
     if(ir == 11){
         ro0 = (mbr & 0x00e00000) >> 21;
         reg[ro0] = !(reg[ro0]);
+        pc += 4;
     };
 
     if(ir > 12 & ir <= 18){
@@ -153,10 +165,13 @@ int main(void) {
                 //mbr = 1100 1010 1111 1110 1100 1010 0000 0000
             mbr = (mbr | memoria[mar++]);
                 //mbr = 1100 1010 1111 1110 1100 1010 1111 1110
-
+            reg[ro0] = mbr;
+            pc += 4;
         };
 
         if (ir == 20){//st
+            // ??????????????????????/
+            pc += 4;
         };
     };
 };
