@@ -39,7 +39,6 @@ int main(void) {
 
     if (ir <= 2){
         if (ir == 0){//hlt
-            pc = 154;
         };
         if (ir == 1) {//nop
             pc += 4;
