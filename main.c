@@ -1,9 +1,17 @@
 #include <stdio.h>
 
-unsigned int mbr, mar, imm, pc = 0;
+unsigned int mbr, mar = 0x0, imm;
+unsigned int pc = 0x0;
 unsigned int reg[8];
-unsigned char ir, ro0, ro1, e, l, g;
-char memoria[154];
+unsigned char memoria[154], ir, ro0, ro1, e, l, g;
+
+void buscaNaMemoria(){
+    mbr = memoria[mar];
+    mbr = (mbr<<8) | ++mar;
+    mbr = (mbr<<8) | ++mar;
+    mbr = (mbr<<8) | ++mar;
+    printf("\n valor de mbr na posiacao da memoria %x\n", mbr);
+};
 
 void busca() {
     mbr = memoria[pc++] << 8;
@@ -30,11 +38,20 @@ void registradorImm(){
 
 void registradorMar(){
     mar = mbr & 0x001fffff;
-};
-
+}
 int main(void) {
+    memoria[0] = 0x13;
+    memoria[1] = 0x00;
+    memoria[2] = 0x00;
+    memoria[3] = 0x92;
+    memoria[146] = 0x00;
+    memoria[147] = 0x00;
+    memoria[148] = 0x00;
+    memoria[149] = 0x05;
+
     // Busca -----------------------------------------------------------------------------------------------------------
     busca();
+
 
     // Decodificação ---------------------------------------------------------------------------------------------------
     opcode();
@@ -43,6 +60,7 @@ int main(void) {
         registradorRo0();
         registradorRo1();
     }
+
     if(ir == 11) {
         registradorRo0();
     }
@@ -182,11 +200,13 @@ int main(void) {
     };
 
     if(ir == 19 | ir == 20) {
-        if (ir == 19){//ld
+        if (ir == 19){//ld;
+            //mbr = (memoria[mar]) << 8;
             mbr = (memoria[mar++]) << 8;
             mbr = (mbr | memoria[mar++]) <<8;
             mbr = (mbr | memoria[mar++]) <<8;
             mbr = (mbr | memoria[mar++]);
+            printf("mbr : %x\tmar :%x",mbr,  mar);
             reg[ro0] = mbr;
             pc += 4;
         }
@@ -241,4 +261,7 @@ int main(void) {
             pc += 4;
         };
     };
+
+    printf("\n%x",reg[ro0]);
+    return 0;
 };
