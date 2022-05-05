@@ -35,6 +35,33 @@ void registradorMar(){
 };
 
 int main(void) {
+    // Busca
+    busca();
+
+    // Decodificação
+    opcode();
+    if(ir >= 3 & ir <= 11) {
+        registradorRo0();
+        registradorRo1();
+    }
+    if(ir == 11) {
+        registradorRo0();
+    }
+
+    if(ir > 12 & ir <= 18) {
+        registradorMar();
+    }
+
+    if(ir == 19 | ir == 20) {
+        registradorRo0();
+        registradorMar();
+    }
+
+    if(ir >= 21 & ir <= 27) {
+        registradorRo0();
+        registradorImm();
+    }
+
     // Execução --------------------------------------------------------------------------------------------------------
 
     if (ir <= 2){
@@ -46,9 +73,6 @@ int main(void) {
     };
 
     if(ir >= 3 & ir <= 11) {
-        registradorRo0();
-        registradorRo1();
-
         if (ir == 2) {//add
             reg[ro0] = reg[ro0] + reg[ro1];
             pc += 4;
@@ -111,15 +135,12 @@ int main(void) {
         };
     };
 
-    if(ir == 11){
-        registradorRo0();
+    if(ir == 11) {
         reg[ro0] = !(reg[ro0]);
         pc += 4;
     };
 
-    if(ir > 12 & ir <= 18){
-        registradorMar();
-
+    if(ir > 12 & ir <= 18) {
         if (ir == 12){//je
             if(e == 1){
                 pc = mar;
@@ -161,10 +182,7 @@ int main(void) {
         };
     };
 
-    if(ir == 19 | ir == 20){
-        registradorRo0();
-        registradorMar();
-
+    if(ir == 19 | ir == 20) {
         if (ir == 19){//ld
             mbr = (memoria[mar++]) << 8;
             mbr = (mbr | memoria[mar++]) <<8;
@@ -172,9 +190,9 @@ int main(void) {
             mbr = (mbr | memoria[mar++]);
             reg[ro0] = mbr;
             pc += 4;
-        };
+        }
 
-        if (ir == 20){//st
+        else if (ir == 20){//st
             //memoria = // 1010 1010 1011 1011 1100 1100 1101 1101
             memoria[mar++] = mbr >> 24;
             //             0000 0000 0000 0000 0000 0000 1010 1010
@@ -188,40 +206,38 @@ int main(void) {
         };
     };
 
-    if(ir >= 21 & ir <= 27){
-        registradorRo0();
-        registradorImm();
+    if(ir >= 21 & ir <= 27) {
         if (ir == 21){//movi
             reg[ro0] = imm;
             pc += 4;
-        };
+        }
 
-        if (ir == 22){//addi
+        else if (ir == 22) {//addi
             reg[ro0] = reg[ro0] + imm;
             pc += 4;
-        };
+        }
 
-        if (ir == 23){//subi
+        else if (ir == 23){//subi
             reg[ro0] = reg[ro0] - imm;
             pc += 4;
-        };
+        }
 
-        if (ir == 24){//muli
+        else if (ir == 24){//muli
             reg[ro0] = reg[ro0] - imm;
             pc += 4;
-        };
+        }
 
-        if (ir == 25){//divi
+        else if (ir == 25){//divi
             reg[ro0] = reg[ro0] / imm;
             pc += 4;
-        };
+        }
 
-        if (ir == 26){//lsh
+        else if (ir == 26){//lsh
             reg[ro0] = reg[ro0] << imm;
             pc += 4;
-        };
+        }
 
-        if (ir == 27){//rsh
+        else if (ir == 27){//rsh
             reg[ro0] = reg[ro0] >> imm;
             pc += 4;
         };
