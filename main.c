@@ -76,24 +76,24 @@ int main(void) {
         if (ir == 2) {//add
             reg[ro0] = reg[ro0] + reg[ro1];
             pc += 4;
-        };
+        }
 
-        if (ir == 3) {//sub
+        else if (ir == 3) {//sub
             reg[ro0] = reg[ro0] - reg[ro1];
             pc += 4;
-        };
+        }
 
-        if (ir == 4) {//mul
+        else if (ir == 4) {//mul
             reg[ro0] = reg[ro0] * reg[ro1];
             pc += 4;
-        };
+        }
 
-        if (ir == 5) {//div
+        else if (ir == 5) {//div
             reg[ro0] = reg[ro0] / reg[ro1];
             pc += 4;
-        };
+        }
 
-        if (ir == 6) {//cmp
+        else if (ir == 6) {//cmp
             e = 0x00;
             l = 0x00;
             g = 0x00;
@@ -101,35 +101,35 @@ int main(void) {
             if (ro0 == ro1){
                 e = 0x01;
                 pc += 4;
-            };
+            }
 
-            if (ro0 < ro1){
+            else if (ro0 < ro1){
                 l = 0x01;
                 pc += 4;
-            };
+            }
 
-            if (ro0 > ro1){
+            else if (ro0 > ro1){
                 g = 0x01;
                 pc += 4;
             };
-        };
+        }
 
-        if (ir == 7) {//movr
+        else if (ir == 7) {//movr
             reg[ro0] = reg[ro1];
             pc += 4;
-        };
+        }
 
-        if (ir == 8) {//and
+        else if (ir == 8) {//and
             reg[ro0] = reg[ro0] & reg[ro1];
             pc += 4;
-        };
+        }
 
-        if (ir == 9) {//or
+        else if (ir == 9) {//or
             reg[ro0] = reg[ro0] | reg[ro1];
             pc += 4;
-        };
+        }
 
-        if (ir == 10) {//xor
+        else if (ir == 10) {//xor
             reg[ro0] = reg[ro0] ^ reg[ro1];
             pc += 4;
         };
@@ -145,39 +145,39 @@ int main(void) {
             if(e == 1){
                 pc = mar;
             };
-        };
+        }
 
-        if (ir == 13){//jne
+        else if (ir == 13){//jne
             if(e == 0){
                 pc = mar;
             };
-        };
+        }
 
-        if (ir == 14){//jl
+        else if (ir == 14){//jl
             if(l == 1){
                 pc = mar;
             };
-        };
+        }
 
-        if (ir == 15){//jle
+        else if (ir == 15){//jle
             if(e == 1 | l == 1){
                 pc = mar;
             };
-        };
+        }
 
-        if (ir == 16){//jg
+        else if (ir == 16){//jg
             if(g == 1){
                 pc = mar;
             };
-        };
+        }
 
-        if (ir == 17){//jge
+        else if (ir == 17){//jge
             if(e == 1 | g == 1){
                 pc = mar;
             };
-        };
+        }
 
-        if (ir == 18){//jmp
+        else if (ir == 18){//jmp
             pc = mar;
         };
     };
