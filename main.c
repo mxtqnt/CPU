@@ -1,10 +1,220 @@
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
-int contador = 0;
+int contador = 0, classificacao;
 unsigned int mbr, mar = 0x0, imm;
 unsigned int pc = 0x0;
 unsigned int reg[8];
 unsigned char memoria[154], ir, ro0, ro1, e, l, g;
+
+// Leitura
+unsigned int indicememoria, conteudo;
+unsigned char linha[];
+FILE *programa;
+unsigned char *partestr;
+
+void preenchendo(unsigned int mem , unsigned int aux){
+    memoria[mem++] = (aux & 0xff000000) >> 24;
+    memoria[mem++] = (aux & 0x00ff0000) >> 16;
+    memoria[mem++] = (aux & 0x0000ff00) >> 8;
+    memoria[mem] = (aux & 0x0000ff);
+}
+
+instrucaoaddtoxor(num, word, registrador, memoriaimediato){
+    word = num;
+    word = (word << 3) | registrador;
+    word = (word << 3) | memoriaimediato;
+    word =  word << 18;
+}
+
+instrucaojetojmp(num, word, memoriaimediato){
+    word = num;
+    word = (word << 24)| memoriaimediato;
+}
+
+preenchermemoria(indicememoria){
+    unsigned char *p, minemonico[10], registrador;
+    unsigned int contar = 0, memoriaimediato, word;
+    p = strtok(p, " ,");
+    while (p){
+        if(contar == 0){
+            strcpy(minemonico, p);
+        }
+        if (contar == 1){
+            registrador = (int) strtol(p, NULL, 16);
+        }
+        if (contar == 2){
+            memoriaimediato = (int) strtol(p, NULL, 16);
+        }
+        p = strtok(NULL, " ,r");
+        contar++;
+    }
+    // PQ não faz com hlt?
+    if (strcmp(minemonico, "nop") == 0){
+        word = 1;
+        word = word << 24;
+        preenchendo(indicememoria, word);
+    }
+    else if (strcmp(minemonico, "add")== 0){
+        instrucaoaddtoxor(2, word, registrador, memoriaimediato);
+        preenchendo(indicememoria, word);
+    }
+    else if (strcmp(minemonico, "sub")== 0) {
+        instrucaoaddtoxor(3, word, registrador, memoriaimediato);
+        preenchendo(indicememoria, word);
+    }
+    else if (strcmp(minemonico, "mul")== 0) {
+        instrucaoaddtoxor(4, word, registrador, memoriaimediato);
+        preenchendo(indicememoria, word);
+    }
+    else if (strcmp(minemonico, "div")== 0) {
+        instrucaoaddtoxor(5, word, registrador, memoriaimediato);
+        preenchendo(indicememoria, word);
+    }
+    else if (strcmp(minemonico, "cmp")== 0) {
+        instrucaoaddtoxor(6, word, registrador, memoriaimediato);
+        preenchendo(indicememoria, word);
+    }
+    else if (strcmp(minemonico, "movr")== 0) {
+        instrucaoaddtoxor(7, word, registrador, memoriaimediato);
+        preenchendo(indicememoria, word);
+    }
+    else if (strcmp(minemonico, "and")== 0) {
+        instrucaoaddtoxor(8, word, registrador, memoriaimediato);
+        preenchendo(indicememoria, word);
+    }
+    else if (strcmp(minemonico, "or")== 0) {
+        instrucaoaddtoxor(9, word, registrador, memoriaimediato);
+        preenchendo(indicememoria, word);
+    }
+    else if (strcmp(minemonico, "xor")== 0) {
+        instrucaoaddtoxor(10, word, registrador, memoriaimediato);
+        preenchendo(indicememoria, word);
+    }
+    else if(strcmp(minemonico, "not")== 0) {
+        word = 11;
+        word = ((word << 3)|registrador) << 21;
+        preenchendo(indicememoria, word);
+    }
+    else if(strcmp(minemonico, "je")== 0) {
+        instrucaojetojmp(12, word, memoriaimediato);
+        preenchendo(indicememoria, word);
+    }
+    else if(strcmp(minemonico, "jne")== 0) {
+        instrucaojetojmp(13, word, memoriaimediato);
+        preenchendo(indicememoria, word);
+    }
+    else if(strcmp(minemonico, "jl")== 0) {
+        instrucaojetojmp(14, word, memoriaimediato);
+        preenchendo(indicememoria, word);
+    }
+    else if(strcmp(minemonico, "jle")== 0) {
+        instrucaojetojmp(15, word, memoriaimediato);
+        preenchendo(indicememoria, word);
+    }
+    else if(strcmp(minemonico, "jg")== 0) {
+        instrucaojetojmp(16, word, memoriaimediato);
+        preenchendo(indicememoria, word);
+    }
+    else if(strcmp(minemonico, "jge")== 0) {
+        instrucaojetojmp(17, word, memoriaimediato);
+        preenchendo(indicememoria, word);
+    }
+    else if(strcmp(minemonico, "jmp")== 0) {
+        instrucaojetojmp(18, word, memoriaimediato);
+        preenchendo(indicememoria, word);
+    }
+    else if(strcmp(minemonico, "ld")== 0){
+        instrucaojetojmp(19, word, memoriaimediato);
+        preenchendo(indicememoria, word);
+    }
+    else if(strcmp(minemonico, "st")== 0){
+        word = 20;
+        word = (word << 3) | registrador;
+        word = (word << 21)| memoriaimediato;
+        preenchendo(indicememoria, word);
+    }
+    else if(strcmp(minemonico, "movi")== 0) {
+        word = 21;
+        word = (word << 3) | registrador;
+        word = (word << 21) | memoriaimediato;
+        preenchendo(indicememoria, word);
+    }
+    else if(strcmp(minemonico, "addi")== 0) {
+        word = 22;
+        word = (word << 3) | registrador;
+        word = (word << 21) | memoriaimediato;
+        preenchendo(indicememoria, word);
+    }
+    else if(strcmp(minemonico, "subi")== 0) {
+        word = 23;
+        word = (word << 3) | registrador;
+        word = (word << 21) | memoriaimediato;
+        preenchendo(indicememoria, word);
+    }
+    else if(strcmp(minemonico, "muli")== 0) {
+        word = 24;
+        word = (word << 3) | registrador;
+        word = (word << 21) | memoriaimediato;
+        preenchendo(indicememoria, word);
+    }
+    else if(strcmp(minemonico, "divi")== 0) {
+        word = 25;
+        word = (word << 3) | registrador;
+        word = (word << 21) | memoriaimediato;
+        preenchendo(indicememoria, word);
+    }
+    else if(strcmp(minemonico, "lsh")== 0) {
+        word = 26;
+        word = (word << 3) | registrador;
+        word = (word << 21) | memoriaimediato;
+        preenchendo(indicememoria, word);
+    }
+    else if(strcmp(minemonico, "rsh")== 0) {
+        word = 27;
+        word = (word << 3) | registrador;
+        word = (word << 21) | memoriaimediato;
+        preenchendo(indicememoria, word);
+    }
+    else{
+        word  = 0;
+        preenchendo(indicememoria, word);
+    }
+}
+
+void carregartxt(){
+    programa = fdopen("programa.txt", "r");
+    while (fgets(linha, 50, programa) != NULL){
+        partestr = strtok(linha, "; ");
+        indicememoria = (int) strtol(partestr, NULL, 16);
+        while (partestr){
+            if (contador == 1){
+                classificacao = partestr;
+            }
+            else if (contador == 2){
+                if(classificacao == 0x64) {//d
+                    conteudo = (int) strtol(partestr, NULL, 16);
+                        memoria[indicememoria++] = (conteudo & 0xff000000) >> 24;
+                        memoria[indicememoria++] = (conteudo & 0x00ff0000) >> 16;
+                        memoria[indicememoria++] = (conteudo & 0x0000ff00) >> 8;
+                        memoria[indicememoria]   = (conteudo & 0x000000ff);
+                }
+                else{
+                    preenchermemoria(indicememoria);
+                }
+            }
+            partestr = strtok(NULL, ";");
+            contador++;
+        }
+        contador = 0;
+    }
+    if (NULL == programa){
+        printf("ERRO AO ABRIR SEU PROGRAMA\n");
+        fclose(programa);
+    }
+};
+
 
 void buscaNaMemoria(){
     mbr = memoria[mar];
@@ -40,15 +250,10 @@ void registradorMar(){
     mar = mbr & 0x001fffff;
 }
 int main(void) {
-    memoria[0] = 0x13;
-    memoria[1] = 0x00;
-    memoria[2] = 0x00;
-    memoria[3] = 0x92;
-    memoria[146] = 0x00;
-    memoria[147] = 0x00;
-    memoria[148] = 0x00;
-    memoria[149] = 0x05;
-
+    while (contador != 154){
+        printf("\nMemória[%d]: %x", contador, memoria[contador]);
+        contador = contador + 1;
+    };
     // Busca -----------------------------------------------------------------------------------------------------------
     busca();
 
@@ -235,10 +440,10 @@ int main(void) {
         printf("\nG: %x", g);
 
         while (contador != 154){
-            printf("\nMemória[%d]: %x", contador, reg[contador]);
+            printf("\nMemória[%d]: %x", contador, memoria[contador]);
             contador = contador + 1;
         };
-        printf("\n------------ Acaba instrução ------------\n\n\n\n");
+        printf("\n------------ Acaba instrução ------------\n\n");
     };
     return 0;
 };
