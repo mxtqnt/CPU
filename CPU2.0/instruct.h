@@ -30,3 +30,8 @@
 #define divia 0b11101
 #define lsh 0b11110
 #define rsh 0b11111
+
+#define masc1 0xff000000
+#define masc2 0x00ff0000
+#define masc3 0x0000ff00
+#define masc4 0x000000ff
