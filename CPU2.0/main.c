@@ -39,8 +39,9 @@ void busca(){
 }
 
 void decodifica(){
-    if(ir == 0x00){
-        printf("NOP");
+    ir = mbr >> 24;
+    if(ir >= hlt && ir <= nop){
+        
     }
 }
 
