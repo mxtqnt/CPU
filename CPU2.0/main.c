@@ -6,7 +6,7 @@
 unsigned char memoria[154],
               ir,
               e,l,g,
-              lr;
+              lr=0;
 
 
 unsigned int mbr;
@@ -34,14 +34,45 @@ void busca(){
     for(int i=1;i<4;i++){
         mbr = mbr<<8;
         mbr = (mbr | memoria[mar++]);
+        pc++;
     }
-
 }
 
 void decodifica(){
     ir = mbr >> 24;
+
     if(ir >= hlt && ir <= nop){
         
+    }else if(ir >= add && ir <= cmp){
+        a = (mbr & 0x00e00000) >> 21;
+        b = (mbr & 0x001c0000) >> 18;
+
+    }else if(ir == xchg){
+        a = (mbr & 0x00e00000) >> 21;
+        b = (mbr & 0x001c0000) >> 18;
+        t = (mbr & 0x0003e000) >> 13;
+    
+    }else if(ir == ldrb){
+        a = (mbr & 0x00e00000) >> 21;
+        b = (mbr & 0x001c0000) >> 18;
+    }    
+    else if(ir >= and && ir <= xor){
+        a = (mbr & 0x00e00000) >> 21;
+        b = (mbr & 0x001c0000) >> 18;
+    }
+    else if(ir == not){
+        a = (mbr & 0x00e00000) >> 21;
+    
+    }else if(ir >= je && ir <= jmp){
+        mar = mbr & 0x001fffff;
+    
+    }else if(ir >= lda && ir<=stb){
+        a = (mbr & 0x00e00000) >> 21;
+        mar = mbr & 0x001fffff;
+    
+    }else if(ir >= movial && ir <= divia){
+        a = (mbr & 0x00e00000) >> 21;
+        imm = (mbr & 0x0000ffff);
     }
 }
 
