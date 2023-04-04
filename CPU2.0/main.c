@@ -39,20 +39,9 @@ void busca(){
 }
 
 void decodifica(){
-    ir = mbr >> 27;
-
-    if(lr=0){
-        ibr = mbr & 0xF8000000;
     
-        if(ir >= hlt && ir <= stb){
-            mar= mbr & 0x7FF >> 16;
-            
-        }else if(ir >= movial && ir <= rsh){
-            imm= mbr & 0x7FF >> 16;
-            
-        }
 
-    }else{
+    if(lr=1){
         ir= (ibr & 0x07FF)>>11;
 
         if(ir >= hlt && ir <= stb){
@@ -60,6 +49,17 @@ void decodifica(){
             
         }else if(ir >= movial && ir <= rsh){
             imm= mbr & 0x7FF;
+            
+        }
+    }else{
+        ir = mbr >> 27;
+        ibr = mbr & 0xF8000000;
+    
+        if(ir >= hlt && ir <= stb){
+            mar= mbr & 0x7FF >> 16;
+            
+        }else if(ir >= movial && ir <= rsh){
+            imm= mbr & 0x7FF >> 16;
             
         }
     }
