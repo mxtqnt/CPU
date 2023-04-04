@@ -39,42 +39,31 @@ void busca(){
 }
 
 void decodifica(){
+    ir = mbr >> 27;
+
     if(lr=0){
-        mbr = (mbr & 0xffff0000) >> 16;
-        /*  1001 1000 0000 1100 | 1010 0000 0000 1110 (Na memória)
-            1001 1000 0000 1100 | 0000 0000 0000 0000 (Máscara)
-            0000 0000 0000 0000 | 1001 1000 0000 1100 (Delocado)
-        */
-    }
-    else{
-        mbr = mbr & 0x0000ffff;
-        /*  1001 1000 0000 1100 | 1010 0000 0000 1110 (Na memória)
-            0000 0000 0000 0000 | 1010 0000 0000 1110 (Deslocado)
-        */
-    }
+        ibr = mbr & 0xF8000000;
     
-    ir = mbr >> 11;
-        /*  1001 1000 0000 1100 (No mbr)
-            0000 0000 0001 0011 (Desclocado)
-        */
-
-    if(ir >= hlt && ir <= stb){
-            mar = mbr & 0x07ff;
-        /*  1010 0000 0000 1110 (No mbr)
-            0000 0111 1111 1111 (Máscara)
-            0    7    f    f
-        */            
-        }
-        
-        else if(ir >= movial && ir <= rsh){
-            imm = mbr & 0x07ff;
-        /*  1010 0000 0000 1110 (No mbr)
-            0000 0111 1111 1111 (Máscara)
-            0    7    f    f
-        */
+        if(ir >= hlt && ir <= stb){
+            mar= mbr & 0x7FF >> 16;
+            
+        }else if(ir >= movial && ir <= rsh){
+            imm= mbr & 0x7FF >> 16;
+            
         }
 
+    }else{
+        ir= (ibr & 0x07FF)>>11;
+
+        if(ir >= hlt && ir <= stb){
+            mar= mbr & 0x7FF;
+            
+        }else if(ir >= movial && ir <= rsh){
+            imm= mbr & 0x7FF;
+            
+        }
     }
+}
 
 void executa(){
 
