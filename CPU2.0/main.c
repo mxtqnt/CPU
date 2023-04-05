@@ -45,10 +45,10 @@ void decodifica(){
         ir= (ibr & 0x07FF)>>11;
 
         if(ir >= hlt && ir <= stb){
-            mar= mbr & 0x7FF;
+            mar= mbr & 0x7FF00000;
             
         }else if(ir >= movial && ir <= rsh){
-            imm= mbr & 0x7FF;
+            imm= mbr & 0x7FF00000;
             
         }
     }else{
