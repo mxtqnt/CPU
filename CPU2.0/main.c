@@ -157,7 +157,7 @@ void executa(){
                 mbr=memoria[mar];
                 mar=ibr&0x7ff;
                 a=memoria[mar];
-                pc+=1;
+                pc++;
             }else{
                 mbr=memoria[mar];
                 mbr=((mbr<<16)|memoria[mar++]);
@@ -165,6 +165,71 @@ void executa(){
                 a=memoria[mar];
                 pc+=1;
             }
+        
+        case ldb:
+            mar=pc;
+            if(lr=1){
+                mbr=memoria[mar];
+                mar=ibr&0x7ff;
+                b=memoria[mar];
+                pc++;
+            }else{
+                mbr=memoria[mar];
+                mbr=((mbr<<16)|memoria[mar++]);
+                mar=mbr&0x7ff;
+                b=memoria[mar];
+                pc++;
+            }
+        
+        case sta:
+            mar=pc;
+            if(lr=1){
+                mbr=memoria[mar];
+                mar=ibr&0x7ff;
+                a=memoria[mar];
+                pc++;
+            }else{
+                mbr=memoria[mar];
+                mbr=((mbr<<16)|memoria[mar++]);
+                mar=mbr&0x7ff;
+                a=memoria[mar];
+                pc++;
+            }
+        
+        case stb:
+            mar=pc;
+            if(lr=1){
+                mbr=memoria[mar];
+                mar=ibr&0x7ff;
+                b=memoria[mar];
+                pc++;
+            }else{
+                mbr=memoria[mar];
+                mbr=((mbr<<16)|memoria[mar++]);
+                mar=mbr&0x7ff;
+                b=memoria[mar];
+                pc++;
+            }
+        
+        case ldrb:
+            mar=pc;
+            if(lr=1){
+                mbr=memoria[mar];
+                mar=ibr&0x7ff;
+                a=b;
+                pc++;
+            }else{
+                mbr=memoria[mar];
+                mbr=((mbr<<16)|memoria[mar++]);
+                mar=mbr&0x7ff;
+                a=b;
+                pc++;
+            }
+        
+        case movial:
+            
+
+
     }
 
     
