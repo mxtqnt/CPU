@@ -67,6 +67,108 @@ void decodifica(){
 
 void executa(){
 
+    switch(ir){
+
+        case hlt:
+
+        case nop:
+            pc++;
+
+        case add:
+            a=a+b;
+
+        case sub:
+            a=a-b;
+
+        case mul:
+            a=a*b;
+
+        case div:
+            a=a/b;
+
+        case cmp:
+            if (a==b){
+                e=1;
+            }else{
+                e=0;
+            }if(a<b){
+                l=1;
+            }else{
+                l=0;
+            }if(a>b){
+                g=1;
+            }else{
+                g=0;
+            }
+
+        case xchg:
+            t=a;
+            a=b;
+            b=t;
+        
+        case and:
+            a=a&b;
+        
+        case or:
+            a=a|b;
+        
+        case xor:
+            a=a^b;
+        
+        case not:
+            a=!a;
+        
+        case je:
+            if(e=1){
+                pc=mar;
+            }
+        
+        case jne:
+            if(e=0){
+                pc=mar;
+            }
+        
+        case jl:
+            if(l=1){
+                pc=mar;
+            }
+        
+        case jle:
+            if(l==1 || e==1){
+                pc=mar;
+            }
+        
+        case jg:
+            if(g==1){
+                pc=mar;
+            }
+        
+        case jge:
+            if(g==1 || e==1){
+                pc=mar;
+            }
+        
+        case jmp:
+            pc=mar;
+        
+        case lda:
+            mar=pc;
+            if(lr=1){
+                mbr=memoria[mar];
+                mar=ibr&0x7ff;
+                a=memoria[mar];
+                pc+=1;
+            }else{
+                mbr=memoria[mar];
+                mbr=((mbr<<16)|memoria[mar++]);
+                mar=mbr&0x7ff;
+                a=memoria[mar];
+                pc+=1;
+            }
+    }
+
+    
+
 }
 
 void texto(){
