@@ -100,7 +100,12 @@ void executa(){
             pc++;
 
         case add:
-            a=a+b;
+            if(lr==1){
+                a=a+b;
+                pc++;
+            }else{
+                a=a+b;
+            }            
 
         case sub:
             a=a-b;
@@ -244,7 +249,10 @@ void executa(){
                 mbr=((mbr<<16)|memoria[mar++]);
                 mar=mbr&0x7ff;
                 a=b;
-            }
+            }break;
+
+        lr!=lr;
+        
         
         case movial:
             a = 0;
@@ -298,22 +306,15 @@ void texto(){
 }
 
 int main(void){
-    //teste do busca
-    // memoria[0] = 0x12;
-    // memoria[1] = 0x34;
-    // memoria[2] = 0x56;
-    // memoria[3] = 0x78;
-
-    //teste do preencher_memoria
-    unsigned int valor = 0x12345678;
-    preencher_memoria(0, valor);
-
-    for (int i = 0; i < 154; i++){
-        printf("%x ", memoria[i]);
-    }
-
-    busca();
     
+    if(lr==1){
+        decodifica();
+        executa();
+    }else{
+        busca();
+        decodifica();
+        executa();
+    }
     
     printf("%08x", mbr);
     
