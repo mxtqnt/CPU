@@ -97,6 +97,12 @@ void executa(){
         case hlt:
 
         case nop:
+            if(lr=1){
+                pc++;
+                lr!=lr;
+            }else{
+                lr!=lr;
+            }
             pc++;
 
         case add:
