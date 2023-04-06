@@ -108,184 +108,414 @@ void executa(){
             }            
 
         case sub:
-            a=a-b;
+            if(lr==1){
+                a=a-b;
+                pc++;
+            }else{
+                a=a-b;
+            } 
 
         case mul:
-            a=a*b;
+            if(lr==1){
+                a=a*b;
+                pc++;
+            }else{
+                a=a*b;
+            } 
 
         case div:
-            a=a/b;
+            if(lr==1){
+                a=a/b;
+                pc++;
+            }else{
+                a=a/b;
+            } 
+
 
         case cmp:
-            if (a==b){
-                e=1;
+            if(lr==1){
+                if (a==b){
+                    e=1;
+                }else{
+                    e=0;
+                }if(a<b){
+                    l=1;
+                }else{
+                    l=0;
+                }if(a>b){
+                    g=1;
+                }else{
+                    g=0;
+                }
+                pc++;
             }else{
-                e=0;
-            }if(a<b){
-                l=1;
-            }else{
-                l=0;
-            }if(a>b){
-                g=1;
-            }else{
-                g=0;
-            }
+                if (a==b){
+                    e=1;
+                }else{
+                    e=0;
+                }if(a<b){
+                    l=1;
+                }else{
+                    l=0;
+                }if(a>b){
+                    g=1;
+                }else{
+                    g=0;
+                }                
+            } 
 
         case xchg:
-            t=a;
-            a=b;
-            b=t;
+            if(lr==1){
+                t=a;
+                a=b;
+                b=t;
+                pc++;
+            }else{
+                t=a;
+                a=b;
+                b=t;
+            }
         
         case and:
-            a=a&b;
+            if(lr==1){
+                a=a&b;
+                pc++;
+            }else{
+                a=a&b;
+            }
         
         case or:
-            a=a|b;
+            if(lr==1){
+                a=a|b;
+                pc++;
+            }else{
+                a=a|b;
+            }
         
         case xor:
-            a=a^b;
+            if(lr==1){
+                a=a^b;
+                pc++;
+            }else{
+                a=a^b;
+            }
         
         case not:
-            a=!a;
+            if(lr==1){
+                a=!a;
+                pc++;
+            }else{
+                a=!a;
+            }
         
         case je:
-            if(e=1){
-                pc=mar;
+            if(lr==1){
+                if(e=1){
+                    pc=mar;
+                }
+                pc++;
+            }else{
+                if(e=1){
+                    pc=mar;
+                }
             }
         
         case jne:
-            if(e=0){
-                pc=mar;
+            if(lr==1){
+                if(e=0){
+                    pc=mar;
+                }
+                pc++;
+            }else{
+                if(e=0){
+                    pc=mar;
+                }
             }
-        
+
         case jl:
-            if(l=1){
-                pc=mar;
+            if(lr==1){
+                if(l=1){
+                    pc=mar;
+                }
+                pc++;
+            }else{
+                if(l=1){
+                    pc=mar;
+                }
             }
         
         case jle:
-            if(l==1 || e==1){
-                pc=mar;
+            if(lr==1){
+                if(l==1 || e==1){
+                    pc=mar;
+                }
+                pc++;
+            }else{
+                if(l==1 || e==1){
+                    pc=mar;
+                }
             }
         
         case jg:
-            if(g==1){
-                pc=mar;
+            if(lr==1){
+                if(g==1){
+                    pc=mar;
+                }
+                pc++;
+            }else{
+                if(g==1){
+                    pc=mar;
+                }
             }
-        
+
         case jge:
-            if(g==1 || e==1){
-                pc=mar;
+            if(lr==1){
+                if(g==1 || e==1){
+                    pc=mar;
+                }
+                pc++;
+            }else{
+                if(g==1 || e==1){
+                    pc=mar;
+                }
             }
         
         case jmp:
-            pc=mar;
-        
-        case lda:
-            mar=pc;
-            if(lr=1){
-                mbr=memoria[mar];
-                mar=ibr&0x7ff;
-                a=memoria[mar];
+            if(lr==1){
+                pc=mar;
                 pc++;
             }else{
-                mbr=memoria[mar];
-                mbr=((mbr<<16)|memoria[mar++]);
-                mar=mbr&0x7ff;
-                a=memoria[mar];
+                pc=mar;
+            }
+        
+        case lda:
+            if(lr==1){
+                mar=pc;
+                if(lr=1){
+                    mbr=memoria[mar];
+                    mar=ibr&0x7ff;
+                    a=memoria[mar];
+                    pc++;
+                }else{
+                    mbr=memoria[mar];
+                    mbr=((mbr<<16)|memoria[mar++]);
+                    mar=mbr&0x7ff;
+                    a=memoria[mar];
+                }
+                pc++;
+            }else{
+                mar=pc;
+                if(lr=1){
+                    mbr=memoria[mar];
+                    mar=ibr&0x7ff;
+                    a=memoria[mar];
+                    pc++;
+                }else{
+                    mbr=memoria[mar];
+                    mbr=((mbr<<16)|memoria[mar++]);
+                    mar=mbr&0x7ff;
+                    a=memoria[mar];
+                }
             }
         
         case ldb:
-            mar=pc;
-            if(lr=1){
-                mbr=memoria[mar];
-                mar=ibr&0x7ff;
-                b=memoria[mar];
+            if(lr==1){
+                mar=pc;
+                if(lr=1){
+                    mbr=memoria[mar];
+                    mar=ibr&0x7ff;
+                    b=memoria[mar];
+                    pc++;
+                }else{
+                    mbr=memoria[mar];
+                    mbr=((mbr<<16)|memoria[mar++]);
+                    mar=mbr&0x7ff;
+                    b=memoria[mar];
+                }
                 pc++;
             }else{
-                mbr=memoria[mar];
-                mbr=((mbr<<16)|memoria[mar++]);
-                mar=mbr&0x7ff;
-                b=memoria[mar];
+                mar=pc;
+                if(lr=1){
+                    mbr=memoria[mar];
+                    mar=ibr&0x7ff;
+                    b=memoria[mar];
+                    pc++;
+                }else{
+                    mbr=memoria[mar];
+                    mbr=((mbr<<16)|memoria[mar++]);
+                    mar=mbr&0x7ff;
+                    b=memoria[mar];
+                }
             }
         
         case sta:
-            mar=pc;
-            if(lr=1){
-                mbr=memoria[mar];
-                mar=ibr&0x7ff;
-                a=memoria[mar];
+            if(lr==1){
+                mar=pc;
+                if(lr=1){
+                    mbr=memoria[mar];
+                    mar=ibr&0x7ff;
+                    a=memoria[mar];
+                    pc++;
+                }else{
+                    mbr=memoria[mar];
+                    mbr=((mbr<<16)|memoria[mar++]);
+                    mar=mbr&0x7ff;
+                    a=memoria[mar];
+                }
                 pc++;
             }else{
-                mbr=memoria[mar];
-                mbr=((mbr<<16)|memoria[mar++]);
-                mar=mbr&0x7ff;
-                a=memoria[mar];
+                mar=pc;
+                if(lr=1){
+                    mbr=memoria[mar];
+                    mar=ibr&0x7ff;
+                    a=memoria[mar];
+                    pc++;
+                }else{
+                    mbr=memoria[mar];
+                    mbr=((mbr<<16)|memoria[mar++]);
+                    mar=mbr&0x7ff;
+                    a=memoria[mar];
+                }
             }
         
         case stb:
-            mar=pc;
-            if(lr=1){
-                mbr=memoria[mar];
-                mar=ibr&0x7ff;
-                b=memoria[mar];
+            if(lr==1){
+                mar=pc;
+                if(lr=1){
+                    mbr=memoria[mar];
+                    mar=ibr&0x7ff;
+                    b=memoria[mar];
+                    pc++;
+                }else{
+                    mbr=memoria[mar];
+                    mbr=((mbr<<16)|memoria[mar++]);
+                    mar=mbr&0x7ff;
+                    b=memoria[mar];
+                }
                 pc++;
             }else{
-                mbr=memoria[mar];
-                mbr=((mbr<<16)|memoria[mar++]);
-                mar=mbr&0x7ff;
-                b=memoria[mar];
+                mar=pc;
+                if(lr=1){
+                    mbr=memoria[mar];
+                    mar=ibr&0x7ff;
+                    b=memoria[mar];
+                    pc++;
+                }else{
+                    mbr=memoria[mar];
+                    mbr=((mbr<<16)|memoria[mar++]);
+                    mar=mbr&0x7ff;
+                    b=memoria[mar];
+                }
             }
         
         case ldrb:
-            mar=pc;
-            if(lr=1){
-                mbr=memoria[mar];
-                mar=ibr&0x7ff;
-                a=b;
+            if(lr==1){
+                mar=pc;
+                if(lr=1){
+                    mbr=memoria[mar];
+                    mar=ibr&0x7ff;
+                    a=b;
+                    pc++;
+                }else{
+                    mbr=memoria[mar];
+                    mbr=((mbr<<16)|memoria[mar++]);
+                    mar=mbr&0x7ff;
+                    a=b;
+                }break;
                 pc++;
             }else{
-                mbr=memoria[mar];
-                mbr=((mbr<<16)|memoria[mar++]);
-                mar=mbr&0x7ff;
-                a=b;
-            }break;
+                mar=pc;
+                if(lr=1){
+                    mbr=memoria[mar];
+                    mar=ibr&0x7ff;
+                    a=b;
+                    pc++;
+                }else{
+                    mbr=memoria[mar];
+                    mbr=((mbr<<16)|memoria[mar++]);
+                    mar=mbr&0x7ff;
+                    a=b;
+                }break;
+            }
 
-        lr!=lr;
-        
         
         case movial:
-            a = 0;
-            a = imm & 0x00FF;
-        /*  1010 0000 0000 1110
-            0000 0000 1111 1111*/  
+            if(lr==1){
+                a = 0;
+                a = imm & 0x00FF;
+            /*  1010 0000 0000 1110
+                0000 0000 1111 1111*/  
+                pc++;
+            }else{
+                a = 0;
+                a = imm & 0x00FF;
+            /*  1010 0000 0000 1110
+                0000 0000 1111 1111*/  
+            }
         
         case moviah:
-            a = imm & 0x00FF << 8;
-        /*  1010 0000 0000 1110
-            0000 0000 1111 1111
-            1111 1111 0000 0000*/  
+            if(lr==1){
+                a = imm & 0x00FF << 8;
+            /*  1010 0000 0000 1110
+                0000 0000 1111 1111
+                1111 1111 0000 0000*/  
+                pc++;
+            }else{
+                a = imm & 0x00FF << 8;
+            /*  1010 0000 0000 1110
+                0000 0000 1111 1111
+                1111 1111 0000 0000*/  
+            }
         
         case addia:
-            a = a + imm; /*???????????????*/
+            if(lr==1){
+                a = a + imm; /*???????????????*/
+                pc++;
+            }else{
+                a = a + imm; /*???????????????*/
+            }
         
         case subia:
-            a = a - imm; /*???????????????*/
+            if(lr==1){
+                a = a - imm; /*???????????????*/
+                pc++;
+            }else{
+                a = a - imm; /*???????????????*/
+            }
 
         case mulia:
-            a = a * imm; /*???????????????*/
+            if(lr==1){
+                a = a * imm; /*???????????????*/
+                pc++;
+            }else{
+                a = a * imm; /*???????????????*/
+            }
 
         case divia:
-            a = a / imm; /*???????????????*/
+            if(lr==1){
+                a = a / imm; /*???????????????*/
+                pc++;
+            }else{
+                a = a / imm; /*???????????????*/
+            }
 
         case lsh:
-            a = a << imm;
+            if(lr==1){
+                a = a << imm;
+                pc++;
+            }else{
+                a = a << imm;
+            }
 
         case rsh:
-            a = a >> imm;
-
-        
+            if(lr==1){
+                a = a >> imm;
+                pc++;
+            }else{
+                a = a >> imm;
+            }
     }
+    lr!=lr;
 }
 
 void texto(){
