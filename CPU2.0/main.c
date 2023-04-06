@@ -253,8 +253,24 @@ void executa(){
             }
         
         case movial:
-            
+        
+        case addia:
+            a=a+imm;
 
+        case subia:
+            a=a-imm;
+        
+        case mulia:
+            a=a*imm;
+        
+        case divia:
+            a=a/imm;
+        
+        case lsh:
+            a=a<<imm;
+        
+        case rsh:
+            a=a>>imm;
 
     }
 
