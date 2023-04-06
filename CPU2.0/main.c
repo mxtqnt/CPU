@@ -253,9 +253,36 @@ void executa(){
             }
         
         case movial:
-            
+            a = 0;
+            a = imm & 0x00FF;
+        /*  1010 0000 0000 1110
+            0000 0000 1111 1111*/  
+        
+        case moviah:
+            a = imm & 0x00FF << 8;
+        /*  1010 0000 0000 1110
+            0000 0000 1111 1111
+            1111 1111 0000 0000*/  
+        
+        case addia:
+            a = a + imm; /*???????????????*/
+        
+        case subia:
+            a = a - imm; /*???????????????*/
 
+        case mulia:
+            a = a * imm; /*???????????????*/
 
+        case divia:
+            a = a / imm; /*???????????????*/
+
+        case lsh:
+            a = a << imm;
+
+        case rsh:
+            a = a << imm;
+
+        
     }
 
     
