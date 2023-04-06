@@ -280,9 +280,7 @@ void executa(){
             a = a << imm;
 
         case rsh:
-            a = a << imm;
-
-        
+            a = a >> imm;
     }
 
     
