@@ -189,7 +189,6 @@ void executa(){
                 mbr=((mbr<<16)|memoria[mar++]);
                 mar=mbr&0x7ff;
                 a=memoria[mar];
-                pc+=1;
             }
         
         case ldb:
@@ -204,7 +203,6 @@ void executa(){
                 mbr=((mbr<<16)|memoria[mar++]);
                 mar=mbr&0x7ff;
                 b=memoria[mar];
-                pc++;
             }
         
         case sta:
@@ -219,7 +217,6 @@ void executa(){
                 mbr=((mbr<<16)|memoria[mar++]);
                 mar=mbr&0x7ff;
                 a=memoria[mar];
-                pc++;
             }
         
         case stb:
@@ -234,7 +231,6 @@ void executa(){
                 mbr=((mbr<<16)|memoria[mar++]);
                 mar=mbr&0x7ff;
                 b=memoria[mar];
-                pc++;
             }
         
         case ldrb:
@@ -249,7 +245,6 @@ void executa(){
                 mbr=((mbr<<16)|memoria[mar++]);
                 mar=mbr&0x7ff;
                 a=b;
-                pc++;
             }
         
         case movial:
@@ -281,10 +276,9 @@ void executa(){
 
         case rsh:
             a = a >> imm;
+
+        
     }
-
-    
-
 }
 
 void texto(){
