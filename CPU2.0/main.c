@@ -34,7 +34,6 @@ void busca(){
     for(int i=1;i<4;i++){
         mbr = mbr<<8;
         mbr = (mbr | memoria[mar++]);
-        pc++;
     }
 }
 
@@ -314,6 +313,8 @@ int main(void){
     }
 
     busca();
+    
+    
     printf("%08x", mbr);
     
     getchar();
