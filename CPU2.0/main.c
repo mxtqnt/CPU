@@ -101,7 +101,7 @@ void executa(){
 
         case add:
             a=a+b;
-
+            
         case sub:
             a=a-b;
 
