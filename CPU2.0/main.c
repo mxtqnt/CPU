@@ -8,6 +8,7 @@ unsigned char memoria[154],
               e,l,g,
               lr=0;
 
+unsigned char *ponteiro;
 
 unsigned int mbr;
 
@@ -554,37 +555,196 @@ void executa(){
     }
     lr!=lr;
 }
+void identifica_instr(int memoria){
+    unsigned char *ponteiro, rg0, mine[8]; // aux recebe rg0
+    unsigned int count = 0, imediatoMem, palavra;
 
-// void identificar_instr(int memoria){
-//     char esquerda[10],direita[10];
-//     int palavra=0;
-//     if(strcmp(mine,"hlt")==0){
-//         palavra=hlt;
-//         palavra<<11
-//     }else if (mine,"nop")==0{
-//         palavra=nop;
-//     {
-//         /* code */
-//     }
-    
+    ponteiro = strtok(ponteiro," ,");
+    while(ponteiro){
+        if(count == 0){
+            strcpy(mine,ponteiro);
+        }
+        if (count== 1){
+            rg0 = (int)strtol(ponteiro,NULL,16);
+        }
+        if(count == 2){
+            imediatoMem = (int)strtol(ponteiro,NULL,16);
+        }
+        ponteiro = strtok(NULL," ,r");
+        count++;
+    }
+    if(strcmp(mine,"nop")== 0) {
+        palavra = 1;
+        palavra = palavra << 11;
+        preencher_memoria(memoria, palavra);
+    } else if(strcmp(mine,"add")== 0){
+        palavra = 2;
+        palavra =  palavra << 18;
+        preencher_memoria(memoria,palavra);
+    } else if(strcmp(mine,"sub")== 0) {
+        palavra = 3;
+        palavra = (palavra << 3) | rg0;
+        palavra = (palavra << 3) | imediatoMem;
+        palavra = palavra << 18;
+        preencher_memoria(memoria, palavra);
+    } else if(strcmp(mine,"mul")== 0) {
+        palavra = 4;
+        palavra = palavra << 18;
+        preencher_memoria(memoria, palavra);
+    } else if(strcmp(mine,"div")== 0) {
+        palavra = 5;
+        palavra = (palavra << 3) | rg0;
+        palavra = (palavra << 3) | imediatoMem;
+        palavra = palavra << 18;
+        preencher_memoria(memoria, palavra);
+    } else if(strcmp(mine,"cmp")== 0) {
+        palavra = 6;
+        palavra = (palavra << 3) | rg0;
+        palavra = (palavra << 3) | imediatoMem;
+        palavra = palavra << 18;
+        preencher_memoria(memoria, palavra);
+    } else if(strcmp(mine,"movr")== 0) {
+        palavra = 7;
+        palavra = (palavra << 3) | rg0;
+        palavra = (palavra << 3) | imediatoMem;
+        palavra = palavra << 18;
+        preencher_memoria(memoria, palavra);
+    } else if(strcmp(mine,"and")== 0) {
+        palavra = 8;
+        palavra = (palavra << 3) | rg0;
+        palavra = (palavra << 3) | imediatoMem;
+        palavra = palavra << 18;
+        preencher_memoria(memoria, palavra);
+    } else if(strcmp(mine,"or")== 0) {
+        palavra = 9;
+        palavra = (palavra << 3) | rg0;
+        palavra = (palavra << 3) | imediatoMem;
+        palavra = palavra << 18;
+        preencher_memoria(memoria, palavra);
+    } else if(strcmp(mine,"xor")== 0) {
+        palavra = 10;
+        palavra = (palavra << 3) | rg0;
+        palavra = (palavra << 3) | imediatoMem;
+        palavra = palavra << 18;
+        preencher_memoria(memoria, palavra);
+    } else if(strcmp(mine,"not")== 0) {
+        palavra = 11;
+        palavra = ((palavra << 3)|rg0)<<21;
+        preencher_memoria(memoria, palavra);
+    } else if(strcmp(mine,"je")== 0) {
+        palavra = 12;
+        palavra = (palavra << 24)| imediatoMem;
+        preencher_memoria(memoria, palavra);
+    } else if(strcmp(mine,"jne")== 0) {
+        palavra = 13;
+        palavra = (palavra << 24)| imediatoMem;
+        preencher_memoria(memoria, palavra);
+    } else if(strcmp(mine,"jl")== 0) {
+        palavra = 14;
+        palavra = (palavra << 24)| imediatoMem;
+        preencher_memoria(memoria, palavra);
+    } else if(strcmp(mine,"jle")== 0) {
+        palavra = 15;
+        palavra = (palavra << 24)| imediatoMem;
+        preencher_memoria(memoria, palavra);
+    } else if(strcmp(mine,"jg")== 0) {
+        palavra = 16;
+        palavra = (palavra << 24)| imediatoMem;
+        preencher_memoria(memoria, palavra);
+    } else if(strcmp(mine,"jge")== 0) {
+        palavra = 17;
+        palavra = (palavra << 24)| imediatoMem;
+        preencher_memoria(memoria, palavra);
+    } else if(strcmp(mine,"jmp")== 0) {
+        palavra = 18;
+        palavra = (palavra << 24)| imediatoMem;
+        preencher_memoria(memoria, palavra);
+    } else if(strcmp(mine,"ld")== 0){
+        palavra = 19;
+        palavra = (palavra << 3) | rg0;
+        palavra = (palavra << 21)| imediatoMem;
+        preencher_memoria(memoria,palavra);
+    } else if(strcmp(mine,"st")== 0){
+        palavra = 20;
+        palavra = (palavra << 3) | rg0;
+        palavra = (palavra << 21)| imediatoMem;
+        preencher_memoria(memoria,palavra);
+    } else if(strcmp(mine,"movi")== 0) {
+        palavra = 21;
+        palavra = (palavra << 3) | rg0;
+        palavra = (palavra << 21) | imediatoMem;
+        preencher_memoria(memoria, palavra);
+    } else if(strcmp(mine,"addi")== 0) {
+        palavra = 22;
+        palavra = (palavra << 3) | rg0;
+        palavra = (palavra << 21) | imediatoMem;
+        preencher_memoria(memoria, palavra);
+    } else if(strcmp(mine,"subi")== 0) {
+        palavra = 23;
+        palavra = (palavra << 3) | rg0;
+        palavra = (palavra << 21) | imediatoMem;
+        preencher_memoria(memoria, palavra);
+    } else if(strcmp(mine,"muli")== 0) {
+        palavra = 24;
+        palavra = (palavra << 3) | rg0;
+        palavra = (palavra << 21) | imediatoMem;
+        preencher_memoria(memoria, palavra);
+    } else if(strcmp(mine,"divi")== 0) {
+        palavra = 25;
+        palavra = (palavra << 3) | rg0;
+        palavra = (palavra << 21) | imediatoMem;
+        preencher_memoria(memoria, palavra);
+    } else if(strcmp(mine,"lsh")== 0) {
+        palavra = 26;
+        palavra = (palavra << 3) | rg0;
+        palavra = (palavra << 21) | imediatoMem;
+        preencher_memoria(memoria, palavra);
+    } else if(strcmp(mine,"rsh")== 0) {
+        palavra = 27;
+        palavra = (palavra << 3) | rg0;
+        palavra = (palavra << 21) | imediatoMem;
+        preencher_memoria(memoria, palavra);
+    } else{
+        palavra  = 0;
+        preencher_memoria(memoria,palavra);
+    }
+}
 
-// }
 
 void texto(){
-    FILE *arquivo;
-    char caracter;
+    unsigned int memo, valor;
+    FILE *arq;
+    unsigned char tipo, linha[40];
+    unsigned int count = 0;
+    arq = fopen("programa.txt", "r");
 
-    arquivo = fopen("programa.txt", "r");
+    while (fgets(linha, 40, arq) != NULL){
+        ponteiro = strtok(linha, "; ");
+        memo = (int)strtol(ponteiro,NULL,16);
+        while(ponteiro){
+            if(count == 1){
+                tipo = *ponteiro;
+            }else if(count == 2){
+                if(tipo == 0x64){
+                    valor = (int)strtol(ponteiro,NULL,16);
+                    memoria[memo++] = (valor & 0xff000000) >> 24;
+                    memoria[memo++] = (valor & 0x00ff0000) >> 16;
+                    memoria[memo++] = (valor & 0x0000ff00) >> 8;
+                    memoria[memo]   = (valor & 0x000000ff);
+                }else{
+                    identifica_instr(memo);
+                }
+            }
 
-    if (arquivo == NULL){
-        printf("Arquivo não encontrado \n");
-    }else{
-        while ((caracter = getc(arquivo)) != EOF) {
-            printf("%c", caracter);
+            ponteiro = strtok(NULL ,";");
+            count++;
         }
-
+        count = 0;
     }
-    fclose(arquivo); 
+
+    if (NULL == arq)
+        printf("Erro ao tentar abrir programa.txt \n");
+    fclose(arq); 
 }
 
 int main(void){

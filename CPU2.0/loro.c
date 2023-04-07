@@ -206,8 +206,6 @@ void colocarInstru(int mem){
         guardarMemoria(mem, palavra);
     } else if(strcmp(mine,"mul")== 0) {
         palavra = 4;
-        palavra = (palavra << 3) | rg0;
-        palavra = (palavra << 3) | imediatoMem;
         palavra = palavra << 18;
         guardarMemoria(mem, palavra);
     } else if(strcmp(mine,"div")== 0) {
