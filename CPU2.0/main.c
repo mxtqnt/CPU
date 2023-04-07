@@ -19,7 +19,6 @@ unsigned short int mar,
 
 char count;
 
-
 void preencher_memoria(unsigned int memo , unsigned int aux){
     memoria[memo++] = (aux & masc1) >> 24;
     memoria[memo++] = (aux & masc2) >> 16;
@@ -555,20 +554,6 @@ void executa(){
     lr!=lr;
 }
 
-// void identificar_instr(int memoria){
-//     char esquerda[10],direita[10];
-//     int palavra=0;
-//     if(strcmp(mine,"hlt")==0){
-//         palavra=hlt;
-//         palavra<<11
-//     }else if (mine,"nop")==0{
-//         palavra=nop;
-//     {
-//         /* code */
-//     }
-    
-
-// }
 
 void texto(){
     FILE *arquivo;
@@ -589,7 +574,6 @@ void texto(){
 
 int main(void){
     char count;
-    
     
       //Fim da busca
     // lerTexto();
