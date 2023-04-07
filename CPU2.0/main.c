@@ -95,6 +95,7 @@ void executa(){
     switch(ir){
 
         case hlt:
+            break;
 
         case nop:
             if(lr=1){
@@ -103,8 +104,8 @@ void executa(){
             }else{
                 lr!=lr;
             }
-            pc++;
-
+            break;
+            
         case add:
             if(lr==1){
                 a=a+b;
@@ -112,6 +113,7 @@ void executa(){
             }else{
                 a=a+b;
             }            
+            break;
 
         case sub:
             if(lr==1){
@@ -120,6 +122,7 @@ void executa(){
             }else{
                 a=a-b;
             } 
+            break;
 
         case mul:
             if(lr==1){
@@ -128,6 +131,7 @@ void executa(){
             }else{
                 a=a*b;
             } 
+            break;
 
         case div:
             if(lr==1){
@@ -136,6 +140,7 @@ void executa(){
             }else{
                 a=a/b;
             } 
+            break;
 
 
         case cmp:
@@ -169,6 +174,7 @@ void executa(){
                     g=0;
                 }                
             } 
+            break;
 
         case xchg:
             if(lr==1){
@@ -181,6 +187,7 @@ void executa(){
                 a=b;
                 b=t;
             }
+            break;
         
         case and:
             if(lr==1){
@@ -189,6 +196,7 @@ void executa(){
             }else{
                 a=a&b;
             }
+            break;
         
         case or:
             if(lr==1){
@@ -197,6 +205,7 @@ void executa(){
             }else{
                 a=a|b;
             }
+            break;
         
         case xor:
             if(lr==1){
@@ -205,6 +214,7 @@ void executa(){
             }else{
                 a=a^b;
             }
+            break;
         
         case not:
             if(lr==1){
@@ -213,6 +223,7 @@ void executa(){
             }else{
                 a=!a;
             }
+            break;
         
         case je:
             if(lr==1){
@@ -225,6 +236,7 @@ void executa(){
                     pc=mar;
                 }
             }
+            break;
         
         case jne:
             if(lr==1){
@@ -237,6 +249,7 @@ void executa(){
                     pc=mar;
                 }
             }
+            break;
 
         case jl:
             if(lr==1){
@@ -249,6 +262,7 @@ void executa(){
                     pc=mar;
                 }
             }
+            break;
         
         case jle:
             if(lr==1){
@@ -261,6 +275,7 @@ void executa(){
                     pc=mar;
                 }
             }
+            break;
         
         case jg:
             if(lr==1){
@@ -273,6 +288,7 @@ void executa(){
                     pc=mar;
                 }
             }
+            break;
 
         case jge:
             if(lr==1){
@@ -285,6 +301,7 @@ void executa(){
                     pc=mar;
                 }
             }
+            break;
         
         case jmp:
             if(lr==1){
@@ -293,6 +310,7 @@ void executa(){
             }else{
                 pc=mar;
             }
+            break;
         
         case lda:
             if(lr==1){
@@ -323,6 +341,7 @@ void executa(){
                     a=memoria[mar];
                 }
             }
+            break;
         
         case ldb:
             if(lr==1){
@@ -353,6 +372,7 @@ void executa(){
                     b=memoria[mar];
                 }
             }
+            break;
         
         case sta:
             if(lr==1){
@@ -383,6 +403,7 @@ void executa(){
                     a=memoria[mar];
                 }
             }
+            break;
         
         case stb:
             if(lr==1){
@@ -413,6 +434,7 @@ void executa(){
                     b=memoria[mar];
                 }
             }
+            break;
         
         case ldrb:
             if(lr==1){
@@ -427,7 +449,7 @@ void executa(){
                     mbr=((mbr<<16)|memoria[mar++]);
                     mar=mbr&0x7ff;
                     a=b;
-                }break;
+                }
                 pc++;
             }else{
                 mar=pc;
@@ -441,8 +463,9 @@ void executa(){
                     mbr=((mbr<<16)|memoria[mar++]);
                     mar=mbr&0x7ff;
                     a=b;
-                }break;
+                }
             }
+            break;
 
         
         case movial:
@@ -458,6 +481,7 @@ void executa(){
             /*  1010 0000 0000 1110
                 0000 0000 1111 1111*/  
             }
+            break;
         
         case moviah:
             if(lr==1){
@@ -472,6 +496,7 @@ void executa(){
                 0000 0000 1111 1111
                 1111 1111 0000 0000*/  
             }
+            break;
         
         case addia:
             if(lr==1){
@@ -480,6 +505,7 @@ void executa(){
             }else{
                 a = a + imm; /*???????????????*/
             }
+            break;
         
         case subia:
             if(lr==1){
@@ -488,6 +514,7 @@ void executa(){
             }else{
                 a = a - imm; /*???????????????*/
             }
+            break;
 
         case mulia:
             if(lr==1){
@@ -496,6 +523,7 @@ void executa(){
             }else{
                 a = a * imm; /*???????????????*/
             }
+            break;
 
         case divia:
             if(lr==1){
@@ -504,6 +532,7 @@ void executa(){
             }else{
                 a = a / imm; /*???????????????*/
             }
+            break;
 
         case lsh:
             if(lr==1){
@@ -512,6 +541,7 @@ void executa(){
             }else{
                 a = a << imm;
             }
+            break;
 
         case rsh:
             if(lr==1){
@@ -520,6 +550,7 @@ void executa(){
             }else{
                 a = a >> imm;
             }
+            break;
     }
     lr!=lr;
 }
