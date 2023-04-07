@@ -524,6 +524,21 @@ void executa(){
     lr!=lr;
 }
 
+// void identificar_instr(int memoria){
+//     char esquerda[10],direita[10];
+//     int palavra=0;
+//     if(strcmp(mine,"hlt")==0){
+//         palavra=hlt;
+//         palavra<<11
+//     }else if (mine,"nop")==0{
+//         palavra=nop;
+//     {
+//         /* code */
+//     }
+    
+
+// }
+
 void texto(){
     FILE *arquivo;
     char caracter;
@@ -542,18 +557,33 @@ void texto(){
 }
 
 int main(void){
+    char count;
     
-    if(lr==1){
-        decodifica();
-        executa();
-    }else{
-        busca();
-        decodifica();
-        executa();
-    }
     
-    printf("%08x", mbr);
-    
-    getchar();
-    return 0;
+      //Fim da busca
+    // lerTexto();
+    while(count!='s'){
+        if(lr==1){
+            // decodifica();
+            // executa();
+        }else{
+            // busca();
+            // decodifica();
+            // executa();
+        }
+      printf("CPU:\n\tA:   %x  B:   %x  T:   %x\n",a,b,t);
+      printf("\tMBR: %x  MAR: %x  IMM: %x\n",mbr,mar,imm);
+      printf("\tPC:  %x  IR:  %x  LR:  %x\n",pc,ir,lr);
+      printf("\tE:   %x  L:   %x  G:   %x\n",e,l,g);
+      
+      printf("Memoria:\n");
+        for(int i = 0 ; i< 155;i++){
+            printf("[%x]=%x\t",i,memoria[i]);
+            if(i%10 == 0 && i !=0)
+                printf("\n");
+        }
+      printf("\n\nAperte enter para um novo ciclo ou aperte a tecla S para parar o programa ");
+      scanf("%c",&count);
+  }
+  
 }
