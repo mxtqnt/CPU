@@ -404,3 +404,362 @@ int main (void) {
 	
 	return 0;
 }
+//  if (IR == hlt) {
+// //        condicao de parada
+//     }
+//     if (IR == nop) {
+        
+//         if(LR==1){
+//             PC += 4;
+//         }
+
+//         LR = !LR;
+
+//     }
+//     if (IR == add) {
+        
+
+//         A = A + B;
+//         if(LR==1){
+//             PC += 4;
+//         }
+
+//         LR = !LR;
+
+//     }
+//     if (IR == sub) {
+        
+
+//         A = A - B;
+//         if(LR==1){
+//             PC += 4;
+//         }
+//         LR = !LR;
+//     }
+//     if (IR == mul) {
+        
+//         A = A*B;
+//         if(LR==1){
+//             PC += 4;
+//         }
+//         LR = !LR;
+//     }
+//     if (IR == div) {
+        
+//         A = A/B;
+//         if(LR==1){
+//             PC += 4;
+//         }
+//         LR = !LR;
+//     }
+//     if (IR == cmp) {
+        
+
+//         if (A == B) {
+//             E = 1;
+//         } else {
+//             E = 0;
+//         }
+
+//         if (A < B) {
+//             L = 1;
+//         } else {
+//             L = 0;
+//         }
+
+//         if (A > B) {
+//             G = 1;
+//         } else {
+//             G = 0;
+//         }
+//         printf("\nVALOR DE E: %x \n VALOR DE L: %x \n VALOR DE G: %x", E,L,G);
+
+//         if(LR==1){
+//             PC += 4;
+//         }
+//         LR = !LR;
+//     }
+
+//     if (IR == xchg) {
+        
+
+//         T = A;
+
+//         A = B;
+
+//         B = T;
+
+
+//         if(LR==1){
+//             PC += 4;
+//         }
+//         LR = !LR;
+//     }
+//     if (IR == and) {
+        
+//         A = A & B;
+
+//         if(LR==1){
+//             PC += 4;
+//         }
+//         LR = !LR;
+//     }
+//     if (IR == or) {
+        
+//         A = A | B;
+
+//         if(LR==1){
+//             PC += 4;
+//         }
+//         LR = !LR;
+//     }
+//     if (IR == xor) {
+        
+//         A = A ^ B;
+
+//         if(LR==1){
+//             PC += 4;
+//         }
+//         LR = !LR;
+//     }
+//     if (IR == not) {
+        
+//         A = !A;
+
+//         if(LR==1){
+//             PC += 4;
+//         }
+//         LR = !LR;
+//     }
+
+
+//     //INSTRUCOES DO TIPO 2
+//     if (IR == je) {
+        
+//         if (E == 1) {
+//             LR = 0;
+//             PC = MAR;
+//         } else {
+//             LR = 0;
+//             PC += 4;
+//         }
+//     }
+//     if (IR == jne) {
+        
+//         if (E == 0) {
+//             LR = 0;
+//             PC = MAR;
+//         } else {
+//             LR = !LR;
+//             PC += 4;
+//         }
+
+//     }
+//     if (IR == jl) {
+        
+//         if (L == 1) {
+//             LR=0;
+//             PC = MAR;
+//         } else {
+//             LR = !LR;
+//             PC += 4;
+//         }
+//     }
+//     if (IR == jle) {
+        
+
+//         if (E == 1 | L == 1) {
+//             LR = 0;
+//             PC = MAR;
+//         } else {
+//             LR = !LR;
+//             PC += 4;
+//         }
+//     }
+//     if (IR == jg) {
+        
+
+//         if (G == 1) {
+//             LR = 0;
+//             PC = MAR;
+//         } else {
+//             LR = !LR;
+//             PC += 4;
+//         }
+//     }
+
+//     if (IR == jge) {
+        
+//         if (E == 1 | G == 1) {
+//             LR = 0;
+//             PC = MAR;
+//         } else {
+//             LR = !LR;
+//             PC += 4;
+//         }
+//     }
+//     if (IR == jmp) {
+        
+//         LR = 0;
+//         PC = MAR;
+//     }
+
+
+//     if (IR == lda) {
+        
+
+//         MAR = PC;
+//         if(LR == 0){
+//             MBR = MEMORIA[MAR];
+
+//             int i;
+//             for (i = 0; i < 2; i++) {
+//                 MBR = (MBR << 8) | MEMORIA[MAR++];
+//             };
+//             MAR = MBR & maskstA;
+
+//             A = MEMORIA[MAR];
+//         }else{
+
+//             MBR = MEMORIA[MAR];
+
+//             MAR = IBR & maskstA;
+//             A = MEMORIA[MAR];
+
+//             PC += 4;
+//         }
+//         LR= !LR;
+//     }
+
+//     if (IR == ldb) {
+
+//         if(LR == 0){
+//             MAR = PC;
+//             MBR = MEMORIA[MAR];
+//             int i;
+//             for (i = 0; i < 2; i++) {
+//                 MBR = (MBR << 8) | MEMORIA[MAR++];
+//             };
+//             MAR = MBR & maskstA;
+//             B = MEMORIA[MAR];
+
+//         }else{
+//             MAR = PC;
+//             MBR = MEMORIA[MAR];
+
+//             MAR = IBR & maskstA;
+//             B = MEMORIA[MAR];
+
+//             PC += 4;
+//         }
+//         LR= !LR;
+//     }
+
+//     if (IR == sta) {
+        
+
+//         if(LR==0){
+
+//             MEMORIA[MAR] = (A & 0x00ff);
+
+//         } else{
+
+// //            MEMORIA[MAR++] = (A & 0xff00) >> 8;
+//             MEMORIA[MAR] = (A & 0x00ff);
+
+//             PC += 4;
+//         }
+
+//         LR = !LR;
+
+//     }
+//     if (IR == stb) {
+        
+//         MEMORIA[MAR] = (B & maskstA);
+//         if(LR == 1){
+// //            MEMORIA[MAR+0x2] = B & 0xff00;
+//             MEMORIA[MAR] = B & 0x00ff;
+
+//             PC += 4;
+
+//         }
+//         LR= !LR;
+
+//     }
+
+//     //INSTRUCAO TIPO 1
+//     if (IR == ldrb) {
+        
+//         A = B;
+//         if(LR==1){
+//             PC += 4;
+//         }
+//         LR= !LR;
+//     }
+
+
+//     //INSTRUCAO TIPO 3
+//     if (IR == movial) {
+        
+//         if(LR==1){
+//             PC += 4;
+//         }
+//         LR= !LR;
+//     }
+//     if (IR == moviah) {
+        
+//         if(LR==1){
+//             PC += 4;
+//         }
+//         LR= !LR;
+//     }
+
+//     if (IR == addia) {
+        
+//         A = A + IMM;
+//         printf("\n\n\n A no addia = %x %i",A, A);
+//         if(LR==1){
+//             PC += 4;
+//         }
+//         LR= !LR;
+//     }
+//     if (IR == subia) {
+        
+//         A = A - IMM;
+//         if(LR==1){
+//             PC += 4;
+//         }
+//         LR= !LR;
+//     }
+//     if (IR == mulia) {
+        
+//         A = A * IMM;
+//         if(LR==1){
+//             PC += 4;
+//         }
+//         LR= !LR;
+//     }
+//     if (IR == divia) {
+        
+//         A = A / IMM;
+//         if(LR==1){
+//             PC += 4;
+//         }
+//         LR= !LR;
+//     }
+//     if (IR == lsh) {
+        
+//         A = (A << IMM);
+//         if(LR==1){
+//             PC += 4;
+//         }
+//         LR= !LR;
+//     }
+//     if (IR == rsh) {
+        
+//         A = (A >> IMM);
+//         if(LR==1){
+//             PC += 4;
+//         }
+//         LR= !LR;
+//     }

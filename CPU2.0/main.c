@@ -101,7 +101,6 @@ void executa(){
         case nop:
             if(lr=1){
                 pc++;
-                lr!=lr;
             }else{
                 lr!=lr;
             }
