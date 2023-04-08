@@ -20,7 +20,6 @@ unsigned short int mar,
 
 char count;
 
-
 void preencher_memoria(unsigned int memo , unsigned int aux){
     memoria[memo++] = (aux & masc1) >> 24;
     memoria[memo++] = (aux & masc2) >> 16;
@@ -110,8 +109,10 @@ void executa(){
             if(lr==1){
                 a=a+b;
                 pc++;
+                lr=!lr;
             }else{
                 a=a+b;
+                lr=!lr;
             }            
             break;
 
@@ -119,8 +120,10 @@ void executa(){
             if(lr==1){
                 a=a-b;
                 pc++;
+                lr=!lr;
             }else{
                 a=a-b;
+                lr=!lr;
             } 
             break;
 
@@ -128,8 +131,10 @@ void executa(){
             if(lr==1){
                 a=a*b;
                 pc++;
+                lr=!lr;
             }else{
                 a=a*b;
+                lr=!lr;
             } 
             break;
 
@@ -137,8 +142,10 @@ void executa(){
             if(lr==1){
                 a=a/b;
                 pc++;
+                lr=!lr;
             }else{
                 a=a/b;
+                lr=!lr;
             } 
             break;
 
@@ -159,6 +166,7 @@ void executa(){
                     g=0;
                 }
                 pc++;
+                lr=!lr;
             }else{
                 if (a==b){
                     e=1;
@@ -173,6 +181,7 @@ void executa(){
                 }else{
                     g=0;
                 }                
+                lr=!lr;
             } 
             break;
 
@@ -182,10 +191,12 @@ void executa(){
                 a=b;
                 b=t;
                 pc++;
+                lr=!lr;
             }else{
                 t=a;
                 a=b;
                 b=t;
+                lr=!lr;
             }
             break;
         
@@ -193,8 +204,10 @@ void executa(){
             if(lr==1){
                 a=a&b;
                 pc++;
+                lr=!lr;
             }else{
                 a=a&b;
+                lr=!lr;
             }
             break;
         
@@ -202,8 +215,10 @@ void executa(){
             if(lr==1){
                 a=a|b;
                 pc++;
+                lr=!lr;
             }else{
                 a=a|b;
+                lr=!lr;
             }
             break;
         
@@ -211,8 +226,10 @@ void executa(){
             if(lr==1){
                 a=a^b;
                 pc++;
+                lr=!lr;
             }else{
                 a=a^b;
+                lr=!lr;
             }
             break;
         
@@ -220,8 +237,10 @@ void executa(){
             if(lr==1){
                 a=!a;
                 pc++;
+                lr=!lr;
             }else{
                 a=!a;
+                lr=!lr;
             }
             break;
         
@@ -231,10 +250,12 @@ void executa(){
                     pc=mar;
                 }
                 pc++;
+                lr=!lr;
             }else{
                 if(e=1){
                     pc=mar;
                 }
+                lr=!lr;
             }
             break;
         
@@ -244,10 +265,12 @@ void executa(){
                     pc=mar;
                 }
                 pc++;
+                lr=!lr;
             }else{
                 if(e=0){
                     pc=mar;
                 }
+                lr=!lr;
             }
             break;
 
@@ -257,10 +280,12 @@ void executa(){
                     pc=mar;
                 }
                 pc++;
+                lr=!lr;
             }else{
                 if(l=1){
                     pc=mar;
                 }
+                lr=!lr;
             }
             break;
         
@@ -270,10 +295,12 @@ void executa(){
                     pc=mar;
                 }
                 pc++;
+                lr=!lr;
             }else{
                 if(l==1 || e==1){
                     pc=mar;
                 }
+                lr=!lr;
             }
             break;
         
@@ -283,10 +310,12 @@ void executa(){
                     pc=mar;
                 }
                 pc++;
+                lr=!lr;
             }else{
                 if(g==1){
                     pc=mar;
                 }
+                lr=!lr;
             }
             break;
 
@@ -296,10 +325,12 @@ void executa(){
                     pc=mar;
                 }
                 pc++;
+                lr=!lr;
             }else{
                 if(g==1 || e==1){
                     pc=mar;
                 }
+                lr=!lr;
             }
             break;
         
@@ -307,8 +338,10 @@ void executa(){
             if(lr==1){
                 pc=mar;
                 pc++;
+                lr=!lr;
             }else{
                 pc=mar;
+                lr=!lr;
             }
             break;
         
@@ -327,6 +360,7 @@ void executa(){
                     a=memoria[mar];
                 }
                 pc++;
+                lr=!lr;
             }else{
                 mar=pc;
                 if(lr=1){
@@ -340,6 +374,7 @@ void executa(){
                     mar=mbr&0x7ff;
                     a=memoria[mar];
                 }
+                lr=!lr;
             }
             break;
         
@@ -358,6 +393,7 @@ void executa(){
                     b=memoria[mar];
                 }
                 pc++;
+                lr=!lr;
             }else{
                 mar=pc;
                 if(lr=1){
@@ -371,6 +407,7 @@ void executa(){
                     mar=mbr&0x7ff;
                     b=memoria[mar];
                 }
+                lr=!lr;
             }
             break;
         
@@ -389,6 +426,7 @@ void executa(){
                     a=memoria[mar];
                 }
                 pc++;
+                lr=!lr;
             }else{
                 mar=pc;
                 if(lr=1){
@@ -402,6 +440,7 @@ void executa(){
                     mar=mbr&0x7ff;
                     a=memoria[mar];
                 }
+                lr=!lr;
             }
             break;
         
@@ -420,6 +459,7 @@ void executa(){
                     b=memoria[mar];
                 }
                 pc++;
+                lr=!lr;
             }else{
                 mar=pc;
                 if(lr=1){
@@ -433,6 +473,7 @@ void executa(){
                     mar=mbr&0x7ff;
                     b=memoria[mar];
                 }
+                lr=!lr;
             }
             break;
         
@@ -451,6 +492,7 @@ void executa(){
                     a=b;
                 }
                 pc++;
+                lr=!lr;
             }else{
                 mar=pc;
                 if(lr=1){
@@ -464,6 +506,7 @@ void executa(){
                     mar=mbr&0x7ff;
                     a=b;
                 }
+                lr=!lr;
             }
             break;
 
@@ -475,11 +518,13 @@ void executa(){
             /*  1010 0000 0000 1110
                 0000 0000 1111 1111*/  
                 pc++;
+                lr=!lr;
             }else{
                 a = 0;
                 a = imm & 0x00FF;
             /*  1010 0000 0000 1110
                 0000 0000 1111 1111*/  
+                lr=!lr;
             }
             break;
         
@@ -490,11 +535,13 @@ void executa(){
                 0000 0000 1111 1111
                 1111 1111 0000 0000*/  
                 pc++;
+                lr=!lr;
             }else{
                 a = imm & 0x00FF << 8;
             /*  1010 0000 0000 1110
                 0000 0000 1111 1111
                 1111 1111 0000 0000*/  
+                lr=!lr;
             }
             break;
         
@@ -502,8 +549,10 @@ void executa(){
             if(lr==1){
                 a = a + imm; /*???????????????*/
                 pc++;
+                lr=!lr;
             }else{
                 a = a + imm; /*???????????????*/
+                lr=!lr;
             }
             break;
         
@@ -511,8 +560,10 @@ void executa(){
             if(lr==1){
                 a = a - imm; /*???????????????*/
                 pc++;
+                lr=!lr;
             }else{
                 a = a - imm; /*???????????????*/
+                lr=!lr;
             }
             break;
 
@@ -520,8 +571,10 @@ void executa(){
             if(lr==1){
                 a = a * imm; /*???????????????*/
                 pc++;
+                lr=!lr;
             }else{
                 a = a * imm; /*???????????????*/
+                lr=!lr;
             }
             break;
 
@@ -529,8 +582,10 @@ void executa(){
             if(lr==1){
                 a = a / imm; /*???????????????*/
                 pc++;
+                lr=!lr;
             }else{
                 a = a / imm; /*???????????????*/
+                lr=!lr;
             }
             break;
 
@@ -538,8 +593,10 @@ void executa(){
             if(lr==1){
                 a = a << imm;
                 pc++;
+                lr=!lr;
             }else{
                 a = a << imm;
+                lr=!lr;
             }
             break;
 
@@ -547,12 +604,13 @@ void executa(){
             if(lr==1){
                 a = a >> imm;
                 pc++;
+                lr=!lr;
             }else{
                 a = a >> imm;
+                lr=!lr;
             }
             break;
     }
-    lr!=lr;
 }
 void identifica_instr(int memoria){
     unsigned char *ponteiro, a, mine[8]; // aux recebe rg0
@@ -724,19 +782,174 @@ void texto(){
 }
 
 int main(void){
+    memoria[0]=0x98;
+    memoria[1]=0x96;
+    memoria[2]=0xa0;
+    memoria[3]=0x98;
+    memoria[4]=0x18;
+    memoria[5]=0x00;
+    memoria[6]=0x38;
+    memoria[7]=0x00;
+    memoria[8]=0x98;
+    memoria[9]=0x94;
+    memoria[10]=0x28;
+    memoria[11]=0x00;
+    memoria[12]=0xa0;
+    memoria[13]=0x92;
+    memoria[14]=0x20;
+    memoria[15]=0x00;
+    memoria[16]=0xa0;
+    memoria[17]=0x90;
+    memoria[18]=0x10;
+    memoria[19]=0x00;
+    memoria[20]=0xa8;
+    memoria[21]=0x8e;
+    memoria[22]=0x00;
+    memoria[23]=0x00;
+    memoria[24]=0x00;
+    memoria[25]=0x00;
+    memoria[26]=0x00;
+    memoria[27]=0x00;
+    memoria[28]=0x00;
+    memoria[29]=0x00;
+    memoria[30]=0x00;
+    memoria[31]=0x00;
+    memoria[32]=0x00;
+    memoria[33]=0x00;
+    memoria[34]=0x00;
+    memoria[35]=0x00;
+    memoria[36]=0x00;
+    memoria[37]=0x00;
+    memoria[38]=0x00;
+    memoria[39]=0x00;
+    memoria[40]=0x00;
+    memoria[41]=0x00;
+    memoria[42]=0x00;
+    memoria[43]=0x00;
+    memoria[44]=0x00;
+    memoria[45]=0x00;
+    memoria[46]=0x00;
+    memoria[47]=0x00;
+    memoria[48]=0x00;
+    memoria[49]=0x00;
+    memoria[50]=0x00;
+    memoria[51]=0x00;
+    memoria[52]=0x00;
+    memoria[53]=0x00;
+    memoria[54]=0x00;
+    memoria[55]=0x00;
+    memoria[56]=0x00;
+    memoria[57]=0x00;
+    memoria[58]=0x00;
+    memoria[59]=0x00;
+    memoria[60]=0x00;
+    memoria[61]=0x00;
+    memoria[62]=0x00;
+    memoria[63]=0x00;
+    memoria[64]=0x00;
+    memoria[65]=0x00;
+    memoria[66]=0x00;
+    memoria[67]=0x00;
+    memoria[68]=0x00;
+    memoria[69]=0x00;
+    memoria[70]=0x00;
+    memoria[71]=0x00;
+    memoria[72]=0x00;
+    memoria[73]=0x00;
+    memoria[74]=0x00;
+    memoria[75]=0x00;
+    memoria[76]=0x00;
+    memoria[77]=0x00;
+    memoria[78]=0x00;
+    memoria[79]=0x00;
+    memoria[80]=0x00;
+    memoria[81]=0x00;
+    memoria[82]=0x00;
+    memoria[83]=0x00;
+    memoria[84]=0x00;
+    memoria[85]=0x00;
+    memoria[86]=0x00;
+    memoria[87]=0x00;
+    memoria[88]=0x00;
+    memoria[89]=0x00;
+    memoria[90]=0x00;
+    memoria[91]=0x00;
+    memoria[92]=0x00;
+    memoria[93]=0x00;
+    memoria[94]=0x00;
+    memoria[95]=0x00;
+    memoria[96]=0x00;
+    memoria[97]=0x00;
+    memoria[98]=0x00;
+    memoria[99]=0x00;
+    memoria[100]=0x00;
+    memoria[101]=0x00;
+    memoria[102]=0x00;
+    memoria[103]=0x00;
+    memoria[104]=0x00;
+    memoria[105]=0x00;
+    memoria[106]=0x00;
+    memoria[107]=0x00;
+    memoria[108]=0x00;
+    memoria[109]=0x00;
+    memoria[110]=0x00;
+    memoria[111]=0x00;
+    memoria[112]=0x00;
+    memoria[113]=0x00;
+    memoria[114]=0x00;
+    memoria[115]=0x00;
+    memoria[116]=0x00;
+    memoria[117]=0x00;
+    memoria[118]=0x00;
+    memoria[119]=0x00;
+    memoria[120]=0x00;
+    memoria[121]=0x00;
+    memoria[122]=0x00;
+    memoria[123]=0x00;
+    memoria[124]=0x00;
+    memoria[125]=0x00;
+    memoria[126]=0x00;
+    memoria[127]=0x00;
+    memoria[128]=0x00;
+    memoria[129]=0x00;
+    memoria[130]=0x00;
+    memoria[131]=0x00;
+    memoria[132]=0x00;
+    memoria[133]=0x00;
+    memoria[134]=0x00;
+    memoria[135]=0x00;
+    memoria[136]=0x00;
+    memoria[137]=0x00;
+    memoria[138]=0x00;
+    memoria[139]=0x00;
+    memoria[140]=0x00;
+    memoria[141]=0x00;
+    memoria[142]=0x00;
+    memoria[143]=0x00;
+    memoria[144]=0x00;
+    memoria[145]=0x20;
+    memoria[146]=0x00;
+    memoria[147]=0x03;
+    memoria[148]=0x00;
+    memoria[149]=0x04;
+    memoria[150]=0x00;
+    memoria[151]=0x05;
+    memoria[152]=0x00;
+    memoria[153]=0x03;
+
+
     char count;
-    
     
       //Fim da busca
     // lerTexto();
     while(count!='s'){
         if(lr==1){
-            // decodifica();
-            // executa();
+            decodifica();
+            executa();
         }else{
-            // busca();
-            // decodifica();
-            // executa();
+            busca();
+            decodifica();
+            executa();
         }
       printf("CPU:\n\tA:   %x  B:   %x  T:   %x\n",a,b,t);
       printf("\tMBR: %x  MAR: %x  IMM: %x\n",mbr,mar,imm);
